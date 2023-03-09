@@ -71,6 +71,8 @@ if(isset($_POST['add_to_cart'])){
 <div class="col-md-6" style="text-align:right; margin:0px auto 0px auto;">>
     <h2 class="text-center">Item Selected</h2>
     <?php
+
+    //вдображення товарів в корзині
     $output = " ";
     $output .= "
                 <table class='table table-bordered table-stripped'>
@@ -99,6 +101,7 @@ if(isset($_POST['add_to_cart'])){
                         </td>
                         </tr>
                         ";
+            //підрахунок загальної вартості
             $total = $total + $value ['quantity'] * $value['price'];
 
         }

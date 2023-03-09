@@ -3,7 +3,7 @@ session_start();
 require_once('./connect.php');
 error_reporting(1);
 $total = 0;
-
+//витягування ключів
 if(isset($_POST['add_to_cart'])){
     if(isset($_SESSION['cart'])){
 
@@ -47,6 +47,7 @@ if(isset($_POST['add_to_cart'])){
                 <div class="col-md-12>">
                 <div class="row">
                 <?php
+                //відображення каталогу товарів
                 $query = "SELECT * FROM products";
                 $result = mysqli_query($connect, $query);
                 while($row = mysqli_fetch_array($result)){?>
@@ -70,6 +71,7 @@ if(isset($_POST['add_to_cart'])){
             <div class="col-md-6">
                 <h2 class="text-center">Item Selected</h2>
                 <?php
+                //відображення товарів в корзині
                 $output = " ";
                 $output .= "
                 <table class='table table-bordered table-stripped'>
@@ -130,6 +132,8 @@ if(isset($_POST['add_to_cart'])){
 <a href="auth/index.php">Login Page</a>
 
 <?php
+
+//Створення функцій видалення та очищення корзини
 if(isset($_GET['action'])){
     if($_GET['action'] == 'clearall'){
         unset($_SESSION['cart']);

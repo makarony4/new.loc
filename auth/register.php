@@ -33,7 +33,7 @@ if(isset($_SESSION['user'])){
         <p>
            Already have account? - <a href="index.php">authorization</a>!
         </p>
-        <?php
+        <?php //
         if (isset($_SESSION['message']))
         {
             echo '<p class="msg">'. $_SESSION['message'] . '</p>';
