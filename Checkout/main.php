@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once('./connect.php');
+require_once('../connect.php'); //db connect
 error_reporting(1);
 $total = 0;
-
+//сиворення умови додавання в корзину
 if(isset($_POST['add_to_cart'])){
     if(isset($_SESSION['cart'])){
 
@@ -34,44 +34,45 @@ if(isset($_POST['add_to_cart'])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <style type="text/css">
+    </style>
+    <title>Delivery Info</title>
+    <style type="text/css">
+        .col-md-6{
+            position:absolute;
+            top:0;
+            right:0;
+        }
+    </style>
 </head>
 <body>
-<h1><a href="admin_panel/index.php">ADmin Panel</a></h1>
-<div class="container-fluid">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-center">SHopping cart data</h2>
-                <div class="col-md-12>">
-                <div class="row">
-                <?php
-                $query = "SELECT * FROM products";
-                $result = mysqli_query($connect, $query);
-                while($row = mysqli_fetch_array($result)){?>
-                <div class="col-md-4">
-                    <form method="post" action="index.php?id=<?=$row['id']?>">
-                        <img src="admin_panel/<?=$row['photo']?>" style="height: 150px;">
-                        <h5 class="text-center"><?=$row['title']?></h5>
-                        <h5 class="text-center"><?=$row['price']?>UAH</h5>
-                        <input type="hidden" name="title" value="<?=$row['title']?>">
-                        <input type="hidden" name="price" value="<?=$row['price']?>">
-                        <input type="number" name="quantity" value="1" class="form-control">
-                        <input type="submit" name="add_to_cart" class="btn btn-warning btn-block my-5" value="Add To Cart">
-                    </form>
-                </div>
-                <?php
-                }
-                ?>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h2 class="text-center">Item Selected</h2>
-                <?php
-                $output = " ";
-                $output .= "
+
+<a href="../auth/index.php"><h1>Login Page</h1></a>
+<a href="../index.php"><h1>Products page</h1></a>
+
+
+<form action="config/createorder.php?action=add_to_cart" name="delivery" method="post" style="padding: 10px">
+    <p>Full Name</p>
+    <input type="text" name="full_name" placeholder="Press your Full Name">
+    <p>City</p>
+    <input type="text" name="city" placeholder="Press your city">
+    <p>Address</p>
+    <input type="text" name="address" placeholder="Press your Address">
+    <p>Phone Number</p>
+    <input type="text" name="number" placeholder="Press your Number" maxlength="10"><br><br>
+    <input type="submit" value="Confirm">
+</form>
+
+</div>
+<div class="col-md-6" style="text-align:right; margin:0px auto 0px auto;">>
+    <h2 class="text-center">Item Selected</h2>
+    <?php
+    $output = " ";
+    $output .= "
                 <table class='table table-bordered table-stripped'>
                 <tr>
                 <th>ID</th>
@@ -82,9 +83,9 @@ if(isset($_POST['add_to_cart'])){
                 <th>Action</th>
                 </tr>
                 ";
-                if(!empty($_SESSION['cart'])){
-                    foreach ($_SESSION['cart'] as $key => $value) {
-                        $output .= "
+    if(!empty($_SESSION['cart'])){
+        foreach ($_SESSION['cart'] as $key => $value) {
+            $output .= "
                         <tr>
                         <td>".$value['id']."</td>
                         <td>".$value['title']."</td>
@@ -92,42 +93,33 @@ if(isset($_POST['add_to_cart'])){
                         <td>".$value['quantity']."</td>
                         <td>".number_format($value['price'] * $value['quantity'])."</td>
                         <td>
-                        <a href='index.php?action=remove&id=".$value['id']."'>
+                        <a href='main.php?action=remove&id=".$value['id']."'>
                         <button class='btn btn-danger btn-block'>Remove</button>
                         </a>
                         </td>
                         </tr>
                         ";
-                        $total = $total + $value ['quantity'] * $value['price'];
+            $total = $total + $value ['quantity'] * $value['price'];
 
-                    }
-                    $output .="
+        }
+        $output .="
                     <tr>
                     <td colspan='3'></td>
                     <td></b>Total price</td>
                     <td>". number_format($total,2)."</td>
                     <td>
-                        <a href='index.php?action=clearall'>
+                        <a href='main.php?action=clearall'>
                         <button class='btn btn-warning'>Clear All</button>
-                        </a>
-                        </td>
-                                            <td>
-                        <a href='/Checkout/main.php?action=confirm'>
-                        <button class='btn btn-primary'>Move to cart</button>
                         </a>
                         </td>
                     </tr>
                     ";
-                }
+    }
 
-                echo $output;
+    echo $output;
 
-                ?>
-            </div>
-        </div>
-    </div>
+    ?>
 </div>
-<a href="auth/index.php">Login Page</a>
 
 <?php
 if(isset($_GET['action'])){

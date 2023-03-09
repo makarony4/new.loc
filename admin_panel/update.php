@@ -20,7 +20,10 @@ $product = mysqli_fetch_assoc($product);
 <h3>UPDATE PRODUCT</h3>
 <form action="config/update.php" method="post" enctype = "multipart/form-data">
     <p>Photo</p>
-    <input type="file" name="photo" value="<?=$product['photo']?>" >
+    <img src="<?=$product['photo']?>" width="100" height="100">
+    <div>
+    <input type="file" name="photo" value="<?=$product['photo']?>" accept=".jpg, .jpeg, .png" >
+    </div>
     <input type="hidden", name="id", value="<?=$product_id?>">
     <p>Title</p>
     <input type="text" name="title" value="<?= $product['title'] ?>">
@@ -30,6 +33,5 @@ $product = mysqli_fetch_assoc($product);
     <textarea name="description"><?= $product['description'] ?></textarea><br><br>
     <button type="submit">Update product</button>
 </form>
-
 </body>
 </html>

@@ -35,6 +35,7 @@ $products = mysqli_fetch_all($products);
     }
 </style>
 <body>
+<h1><a href="orders.php" class="link-primary">Orders</a></h1>
 <a href = "../index.php">Products page</a>
 <table>
     <tr>
@@ -56,7 +57,6 @@ $products = mysqli_fetch_all($products);
         <td><?=$product[2]?></td>
         <td><?=$product[3]?></td>
         <td><img src="<?=$product[4]?>" width="100" height="100"></td>
-
         <td><a href="update.php?id=<?=$product[0]?>">Update</a></td>
         <td><a href="delete.php?id=<?=$product[0]?>">Delete</a> </td>
     </tr>
@@ -76,5 +76,6 @@ $products = mysqli_fetch_all($products);
     <textarea name="description"></textarea> <br>
     <button type="submit">Create new product</button>
 </form>
+</table><br><br>
 </body>
 </html>
