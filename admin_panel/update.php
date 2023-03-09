@@ -21,9 +21,7 @@ $product = mysqli_fetch_assoc($product);
 <form action="config/update.php" method="post" enctype = "multipart/form-data">
     <p>Photo</p>
     <img src="<?=$product['photo']?>" width="100" height="100">
-    <div>
     <input type="file" name="photo" value="<?=$product['photo']?>" accept=".jpg, .jpeg, .png" >
-    </div>
     <input type="hidden", name="id", value="<?=$product_id?>">
     <p>Title</p>
     <input type="text" name="title" value="<?= $product['title'] ?>">
