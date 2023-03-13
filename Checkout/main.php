@@ -139,7 +139,6 @@ if($_GET['action'] == 'remove'){
         }
     }
 }
-
 ?>
 </body>
 </html>

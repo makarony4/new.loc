@@ -1,3 +1,7 @@
+<?php
+session_start();
+unset($_SESSION['cart']);
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />

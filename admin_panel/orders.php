@@ -39,45 +39,49 @@ require_once ('../connect.php');
         <th>Number</th>
         <th>City</th>
         <th>Address</th>
-        <th>Product ID</th>
-        <th>Quantity</th>
-        <th>Product</th>
-        <th>Price</th>
         <th>Order Date</th>
-
+        <th>Status</th>
+        <th></th>
     </tr>
 
     <?php
-    $orders = mysqli_query($connect,"SELECT * FROM `orders`");
-    $products = mysqli_query($connect, "SELECT * FROM products");
+//    $orders = mysqli_query($connect,"select * from order_products inner join products on order_products.product_id= products.id inner join orders on order_products.order_id = orders.id;
+//");
+    $orders = mysqli_query($connect, "SELECT * FROM orders");
+
     $orders = mysqli_fetch_all($orders);
-    $products = mysqli_fetch_all($products);
 
 
 
-    foreach ($orders as $order){
-        echo"<pre>";
-        print_r($order);
-        echo"</pre>";
-            ?>
+
+foreach ($orders as $order){
+//    mysqli_query($connect, "select * from order_products where order_id in (select order_id from order_products group by order_id having count(*) >1);");
+
+    ?>
         <tr>
             <td><?=$order[0]?></td>
             <td><?=$order[1]?></td>
             <td>+380<?=$order[2]?></td>
             <td><?=$order[3]?></td>
             <td><?=$order[4]?></td>
-            <td><?=$order[9]?></td>
-            <td><?=$order[6]?></td>
-            <td><?=$order[7]?></td>
-            <td><?=$order[8]?></td>
             <td><?=$order[5]?></td>
+            <td>
+                <select>
+                    <option>New</option>
+                    <option>Pending</option>
+                    <option>DOne</option>
+                </select>
+                <button type="submit">Save</button>
+            </td>
+            <td><a href="order_details.php?id=<?=$order[0]?>">Details</a></td>
             
 
         </tr>
         <?php
-    }
+}
     ?>
 </table><br><br>
+
 </body>
 </html>
 
