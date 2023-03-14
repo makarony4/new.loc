@@ -40,8 +40,7 @@ require_once ('../connect.php');
         <th>City</th>
         <th>Address</th>
         <th>Order Date</th>
-        <th>Status</th>
-        <th></th>
+        <th>Order Status</th>
     </tr>
 
     <?php
@@ -56,7 +55,15 @@ require_once ('../connect.php');
 
 foreach ($orders as $order){
 //    mysqli_query($connect, "select * from order_products where order_id in (select order_id from order_products group by order_id having count(*) >1);");
-
+if ($order[6] == 0){
+   $status = 'New';
+}
+elseif ($order[6] == 1){
+    $status = 'Pending';
+}
+else{
+    $status = 'Done';
+}
     ?>
         <tr>
             <td><?=$order[0]?></td>
@@ -65,17 +72,8 @@ foreach ($orders as $order){
             <td><?=$order[3]?></td>
             <td><?=$order[4]?></td>
             <td><?=$order[5]?></td>
-            <td>
-                <select>
-                    <option>New</option>
-                    <option>Pending</option>
-                    <option>DOne</option>
-                </select>
-                <button type="submit">Save</button>
-            </td>
+            <td><?=$status?></td>
             <td><a href="order_details.php?id=<?=$order[0]?>">Details</a></td>
-            
-
         </tr>
         <?php
 }

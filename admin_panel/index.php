@@ -3,7 +3,8 @@ error_reporting(-1);
 require_once('../connect.php');
 
 //create product
-
+//$sql = "SELECT * FROM `products`";
+//$stmt = mysqli_prepare($connect, $sql);
 $products = mysqli_query($connect,"SELECT * FROM `products`");
 $products = mysqli_fetch_all($products);
 

@@ -3,7 +3,7 @@ require_once ('../connect.php');
 
 session_start();
 
-$order_id = $_GET['id'];
+$order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,6 +27,7 @@ $order_id = $_GET['id'];
     }
 </style>
 <body>
+<a href="orders.php">Back to orders</a>
 <table>
     <tr>
         <th>Order ID</th>
@@ -70,6 +71,13 @@ $order_id = $_GET['id'];
 //$ordered_products = mysqli_query($connect, "select * from order_products inner join products on product_id = products.id WHERE order_id = '$order_id';");
 $ordered_products = mysqli_query($connect, "SELECT * FROM order_products where order_id = '$order_id'");
 $ordered_products = mysqli_fetch_all($ordered_products);
+
+//if (isset($_POST['status'])){
+//    if(!empty($_POST['status'])){
+//        $status = $_POST['status'];
+//        mysqli_query($connect, "UPDATE order_products set order_status = '$status' where order_id = '$order_id'");
+//    }
+//}
 
 ?>
 
