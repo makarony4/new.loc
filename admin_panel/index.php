@@ -2,18 +2,13 @@
 error_reporting(-1);
 require_once('../connect.php');
 
-//create product
-//$sql = "SELECT * FROM `products`";
-//$stmt = mysqli_prepare($connect, $sql);
+
 $products = mysqli_query($connect,"SELECT * FROM `products`");
 $products = mysqli_fetch_all($products);
 
 
-//$path = 'uploads/' . time() . $_FILES['photo']['name'];
-//move_uploaded_file($_FILES['photo']['tmp_name'], '../' . $path);
 
 
-//mysqli_query($connect, "INSERT INTO `products` (`id`, `title`, `description`, `price`) VALUES (NULL, '$title', '$description', '$price');");
 ?>
 
 
@@ -58,8 +53,8 @@ $products = mysqli_fetch_all($products);
         <td><?=$product[2]?></td>
         <td><?=$product[3]?></td>
         <td><img src="<?=$product[4]?>" width="100" height="100"></td>
-        <td><a href="update.php?id=<?=$product[0]?>">Update</a></td>
-        <td><a href="delete.php?id=<?=$product[0]?>">Delete</a> </td>
+        <td><a href="update.php?id=<?=mysqli_real_escape_string($connect,$product[0])?>">Update</a></td>
+        <td><a href="delete.php?id=<?=mysqli_real_escape_string($connect, $product[0])?>">Delete</a> </td>
     </tr>
     <?php
 }

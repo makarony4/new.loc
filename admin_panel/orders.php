@@ -44,17 +44,10 @@ require_once ('../connect.php');
     </tr>
 
     <?php
-//    $orders = mysqli_query($connect,"select * from order_products inner join products on order_products.product_id= products.id inner join orders on order_products.order_id = orders.id;
-//");
     $orders = mysqli_query($connect, "SELECT * FROM orders");
-
     $orders = mysqli_fetch_all($orders);
 
-
-
-
 foreach ($orders as $order){
-//    mysqli_query($connect, "select * from order_products where order_id in (select order_id from order_products group by order_id having count(*) >1);");
 if ($order[6] == 0){
    $status = 'New';
 }

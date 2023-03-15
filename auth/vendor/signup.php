@@ -15,7 +15,11 @@ if($password === $confirm_password){
     }
     //хешую пасс
     $password = md5($password);
-    mysqli_query($connect, "INSERT INTO users (full_name, login, email, password,avatar) VALUES ('$full_name', '$login', '$email', '$password', '$path')");
+    $sql = "INSERT INTO users (full_name, login, email, password,avatar) VALUES (?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($connect, $sql);
+    mysqli_stmt_bind_param($stmt, "sssss", $full_name, $login, $email, $password, $path);
+    mysqli_stmt_execute($stmt);
+    mysqli_close($connect);
     header('Location: ../index.php');
     //повідомлення при успішній реєстрації
     $_SESSION['success'] = 'Реєстрація пройшла успішно';

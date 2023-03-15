@@ -39,8 +39,6 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
     </tr>
 
     <?php
-    //    $orders = mysqli_query($connect,"select * from order_products inner join products on order_products.product_id= products.id inner join orders on order_products.order_id = orders.id;
-    //");
     $orders = mysqli_query($connect, "SELECT * FROM orders where id = '$order_id' ");
 
     $orders = mysqli_fetch_assoc($orders);
@@ -48,9 +46,6 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
     $total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = '$order_id'");
     $total = mysqli_fetch_array($total);
 
-
-    //foreach ($orders as $order){
-    //    mysqli_query($connect, "select * from order_products where order_id in (select order_id from order_products group by order_id having count(*) >1);");
 
     ?>
     <tr>
@@ -68,16 +63,9 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 <br><br>
 
 <?php
-//$ordered_products = mysqli_query($connect, "select * from order_products inner join products on product_id = products.id WHERE order_id = '$order_id';");
 $ordered_products = mysqli_query($connect, "SELECT * FROM order_products where order_id = '$order_id'");
 $ordered_products = mysqli_fetch_all($ordered_products);
 
-//if (isset($_POST['status'])){
-//    if(!empty($_POST['status'])){
-//        $status = $_POST['status'];
-//        mysqli_query($connect, "UPDATE order_products set order_status = '$status' where order_id = '$order_id'");
-//    }
-//}
 
 ?>
 
