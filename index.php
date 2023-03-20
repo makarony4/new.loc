@@ -60,6 +60,7 @@ if(isset($_POST['add_to_cart'])){
                         <input type="hidden" name="price" value="<?=$row['price']?>">
                         <input type="number" name="quantity" value="1" class="form-control">
                         <input type="submit" name="add_to_cart" class="btn btn-warning btn-block my-5" value="Add To Cart">
+
                     </form>
                 </div>
                 <?php
