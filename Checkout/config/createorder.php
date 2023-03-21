@@ -1,30 +1,12 @@
 <?php
 session_start();
 require_once ('../../connect.php');
+require_once ('../../funcs/funcs.php');
 
-
-$delivery_info = [];
-$order_marks = '';
-$order_types = '';
-function deliveryInfo(array $arr){
-    global $delivery_info, $order_marks,$order_types;
-        $item = array_values($arr);
-        array_push($delivery_info, ...$item);
-        $order_marks .= "(" . str_repeat("?,", count($arr));
-        $order_marks = substr($order_marks, 0, -1);
-        $order_marks .= ")";
-        $order_types .= 'siss';
-}
-function insertOrder($table_name, $columns, $bind, $types, array $params){
-    global $connect;
-    $query = "INSERT INTO $table_name ($columns) VALUES $bind";
-    $stmt_products = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt_products, "$types",...$params);
-    mysqli_stmt_execute($stmt_products);
-}
 deliveryInfo($_POST);
-var_dump(insertOrder('orders', 'full_name, city, address, number', $order_marks, $order_types, $delivery_info));
+insertOrder('orders', 'full_name, city, address, number', $order_marks, $order_types, $delivery_info);
 
+var_dump(array_values($_POST));
 $last_order_id= (mysqli_insert_id($connect));
 $params = [];
 $types = '';
