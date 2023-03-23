@@ -10,7 +10,8 @@ $columns .= $key . ",";
 }
 $columns = substr($columns, 0 , -1);
 
-insertOrder('orders',$columns , getMarks(getParams($_POST)), getTypes($_POST), getParams($_POST));
+
+insertOrder('orders',$columns,$_POST);
 $last_order_id= (mysqli_insert_id($connect));
 
 $columns = '';
@@ -24,12 +25,12 @@ $products_column = "order_id, " . $columns . " total_price";
 
 
 
-insertOrder('order_products', $products_column, getMarks($_SESSION['cart']), getTypes(getParams($_SESSION['cart'])), (getParams($_SESSION['cart'])));
+insertOrder('order_products', $products_column, $_SESSION['cart']);
 
 
 //перенаправляємо на сторінку подяки, відміняємо сесію корзини
-header('Location: ../typage.php');
-unset($_SESSION['cart']);
+//header('Location: ../typage.php');
+//unset($_SESSION['cart']);
     ?>
 
 

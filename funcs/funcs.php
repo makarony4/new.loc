@@ -60,10 +60,10 @@ return $type;
 }
 
 //вставляємо в мускл
-function insertOrder($table_name, $columns, $bind, $types, array $params){
+function insertOrder($table_name, $columns, $arr){
     global $connect;
-    $query = "INSERT INTO $table_name ($columns) VALUES $bind";
+    $query = "INSERT INTO $table_name ($columns) VALUES " . getmarks($arr);
     $stmt_products = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt_products, $types ,...$params);
+    mysqli_stmt_bind_param($stmt_products, getTypes(getParams($arr)) ,...getParams($arr));
     mysqli_stmt_execute($stmt_products);
 }
