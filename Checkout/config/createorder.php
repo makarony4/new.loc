@@ -10,7 +10,7 @@ $columns .= $key . ",";
 }
 $columns = substr($columns, 0 , -1);
 
-insertOrder('orders',$columns , getMarks(deliveryInfo($_POST)), getTypes($_POST), deliveryInfo($_POST));
+insertOrder('orders',$columns , getMarks(getParams($_POST)), getTypes($_POST), getParams($_POST));
 $last_order_id= (mysqli_insert_id($connect));
 
 $columns = '';
