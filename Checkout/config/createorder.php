@@ -21,16 +21,24 @@ foreach($_SESSION['cart'] as $keys => $values){
     }
     break;
 }
-$products_column = "order_id, " . $columns . " total_price";
+$products_column = $columns . " total_price, order_id";
 
 
-
-insertOrder('order_products', $products_column, $_SESSION['cart']);
+$product_params = [];
+foreach ($_SESSION['cart'] as $key => $value){
+    $value['total_price'] = $value['price'] * $value['quantity'];
+    $value['order_id'] = $last_order_id;
+    foreach ($value as $key => $value) {
+        $product_params[] = $value;
+    }
+}
+//var_dump(getParams($_POST));
+insertOrder('order_products', $products_column, $product_params);
 
 
 //перенаправляємо на сторінку подяки, відміняємо сесію корзини
-//header('Location: ../typage.php');
-//unset($_SESSION['cart']);
+header('Location: ../typage.php');
+unset($_SESSION['cart']);
     ?>
 
 

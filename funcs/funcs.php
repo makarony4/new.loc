@@ -1,19 +1,10 @@
 <?php
 //витягуємо параметри
-function getParams(array $arr){
+function getParams(array $arr)
+{
     $params = [];
-    global $last_order_id;
-    if($arr == $_POST){
-        $param = array_values($arr);
-        array_push($params, ...$param);
-    }elseif ($arr == $_SESSION['cart']){
-    foreach ($arr as $key => $values) {
-        $param = array_values($values);
-        $total_price = $values['price'] * $values['quantity'];
-        array_push($params,$last_order_id, ...$param);
-        $params[] = $total_price;
-        }
-    }
+    $param = array_values($arr);
+    array_push($params, ...$param);
     return $params;
 }
 
@@ -29,13 +20,14 @@ function getParams(array $arr){
 
 //ловимо знаки питання для бінду
 function getMarks($count){
+    global $product_params;
     $question_mark = "(" . str_repeat('?,' , count($count));
-    if ($count == $_SESSION['cart']){
+    if ($count == $product_params){
         $question_mark = "(" . str_repeat('?,' , count($_SESSION['cart'][0]) + 2);
     }
     $question_mark = substr($question_mark, 0, -1);
     $question_mark .= ")";
-    if ($count == $_SESSION['cart']){
+    if ($count == $product_params){
 $question_mark .= ',';
 $question_mark = str_repeat($question_mark, count($_SESSION['cart']));
 $question_mark = substr($question_mark, 0 ,-1);
