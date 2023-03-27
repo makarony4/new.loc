@@ -2,8 +2,6 @@
 session_start();
 require_once ('../connect.php');
 
-
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -68,7 +66,8 @@ else{
             <td><?=$status?></td>
             <td><a href="order_details.php?id=<?=$order[0]?>">Details</a></td>
             <td><a href="delete_order.php?id=<?=$order[0]?>">Delete</a></td>
-
+            <td><a href="changestatus.php?id=<?=$order[0]?>&action=on_work">Take to work </a></td>
+            <td><a href="changestatus.php?id=<?=$order[0]?>&action=finish">Finish</a></td>
         </tr>
         <?php
 }

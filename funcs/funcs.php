@@ -59,3 +59,5 @@ function insertOrder($table_name, $columns, $arr){
     mysqli_stmt_bind_param($stmt_products, getTypes(getParams($arr)) ,...getParams($arr));
     mysqli_stmt_execute($stmt_products);
 }
+
+echo "OK";
