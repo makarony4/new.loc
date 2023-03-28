@@ -1,14 +1,23 @@
 <?php
 error_reporting(-1);
 require_once('../connect.php');
+session_start();
+
 
 
 $products = mysqli_query($connect,"SELECT * FROM `products`");
 $products = mysqli_fetch_all($products);
 
+if(!$_SESSION['employee']){
+    header("location:javascript://history.go(-1)");
+}
 
-
-
+if(isset($_SESSION['employee'])){
+    if($_SESSION['employee']['role'] !== 'admin'){
+        $_SESSION['alert'] = 'Недостатньо прав доступу';
+header('Location: orders.php');
+    }
+}
 ?>
 
 
@@ -30,6 +39,14 @@ $products = mysqli_fetch_all($products);
         background: bisque;
     }
 </style>
+<header>
+    <?php
+    if(isset($_SESSION['employee'])) {?>
+        <a href = "config/logout.php" class="logout" > Log Out </a >
+    <?php
+    }
+    ?>
+</header>
 <body>
 <h1><a href="orders.php" class="link-primary">Orders</a></h1>
 <a href = "../index.php">Products page</a>

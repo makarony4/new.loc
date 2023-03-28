@@ -21,6 +21,6 @@ if(mysqli_num_rows($check_user) > 0){
     ];
     header('Location: ../profile.php');
 }else{
-    $_SESSION['loginfail'] = 'Невірно введений логін аьо пароль';
+    $_SESSION['loginfail'] = 'Невірно введений логін або пароль';
     header('Location: ../index.php');
 }

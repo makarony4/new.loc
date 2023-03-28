@@ -24,6 +24,24 @@ require_once ('../connect.php');
         }
     </style>
 </head>
+<header>
+    <?php
+
+    if(isset($_SESSION['alert'])){?>
+
+    <h3><?=$_SESSION['alert']?></h3>
+
+    <?php
+    unset($_SESSION['alert']);
+    }
+    ?>
+<?php
+    if(isset($_SESSION['employee'])) {?>
+        <a href = "config/logout.php" class="logout" > Log Out </a >
+        <?php
+    }
+    ?>
+</header>
 <body>
 <h1><a href="index.php">Admin Panel</a></h1>
 <h1><a href="../../index.php">Products Page</a></h1>
