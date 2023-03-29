@@ -62,6 +62,8 @@ if(isset($_POST['add_to_cart'])){
     <input type="text" name="city" placeholder="Press your city">
     <p>Address</p>
     <input type="text" name="address" placeholder="Press your Address">
+    <p>Email</p>
+    <input type="email" name="email" placeholder="Press your email">
     <p>Phone Number</p>
     <input type="text" name="number" placeholder="Press your Number" maxlength="10"><br><br>
     <input type="submit" value="Confirm">
