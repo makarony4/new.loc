@@ -8,14 +8,15 @@ session_start();
 $products = mysqli_query($connect,"SELECT * FROM `products`");
 $products = mysqli_fetch_all($products);
 
-if(!$_SESSION['employee']){
-    header("location:javascript://history.go(-1)");
+if(!isset($_SESSION['employee'])){
+    $_SESSION['message'] = 'Немає прав доступу';
+    header("location: ../index.php");
 }
 
 if(isset($_SESSION['employee'])){
     if($_SESSION['employee']['role'] !== 'admin'){
-        $_SESSION['alert'] = 'Недостатньо прав доступу';
-header('Location: orders.php');
+        $_SESSION['message'] = 'Недостатньо прав доступу';
+        header("location:javascript:history.go(-1)");
     }
 }
 ?>

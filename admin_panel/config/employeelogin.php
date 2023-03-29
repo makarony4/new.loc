@@ -3,9 +3,11 @@ require_once ('../../connect.php');
 session_start();
 
 $login = $_POST['login'];
+$password = $_POST['password'];
 
 
-$result = mysqli_query($connect, "SELECT full_name,login, role FROM employee where login = '$login'");
+
+$result = mysqli_query($connect, "SELECT full_name,login, password, role FROM employee where login = '$login'");
 $result = mysqli_fetch_assoc($result);
 $_SESSION['employee'] = [
     'login' => $result['login'],
@@ -13,9 +15,8 @@ $_SESSION['employee'] = [
     'role' => $result['role']
 ];
 
-$password = $_POST['password'];
 
-if($login == $result['login']){
+if($login == $result['login'] and $password = $result['password']){
     if($result['role'] == 'admin'){
         header('Location: ../index.php');
     }
@@ -24,7 +25,7 @@ if($login == $result['login']){
     }
 }else {
     header('Location: ../login.php');
-    $_SESSION['faillogin'] == 'Невірний логін або пароль';
+    $_SESSION['faillogin'] = 'Невірний логін або пароль';
 }
 
 

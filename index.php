@@ -3,6 +3,12 @@ session_start();
 require_once('./connect.php');
 error_reporting(1);
 $total = 0;
+if(isset($_SESSION['employee'])){?>
+<a href="admin_panel/index.php"><h3>Admin Panel</h3></a>
+<?php
+}
+?>
+<?php
 //витягування ключів
 if(isset($_POST['add_to_cart'])){
     if(isset($_SESSION['cart'])){

@@ -1,14 +1,6 @@
 <?php
 session_start();
 require_once ('../connect.php');
-if(isset($_SESSION['employee'])){
-    if($_SESSION['employee']['role'] == 'admin'){
-        header('Location: index.php');
-    }elseif($_SESSION['employee']['role'] == 'manager'){
-        header('Location: orders.php');
-    }
-}
-
 ?>
 
 <!doctype html>
@@ -31,13 +23,14 @@ if(isset($_SESSION['employee'])){
 
             <?php
             if (isset($_SESSION['faillogin']))
-                echo '<p class="msg">'. $_SESSION['success'] . '</p>';
+                echo '<p class="msg">'. $_SESSION['faillogin'] . '</p>';
+            unset($_SESSION['faillogin']);
 
-        if (isset($_SESSION['success']))
+        if (isset($_SESSION['message']))
         {
-            echo '<p class="msg">'. $_SESSION['success'] . '</p>';
+            echo '<p class="msg">'. $_SESSION['message'] . '</p>';
         }
-        unset($_SESSION['success']);
+        unset($_SESSION['message']);
 
         ?>
 
