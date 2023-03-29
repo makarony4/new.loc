@@ -3,6 +3,10 @@ require_once ('../connect.php');
 
 session_start();
 
+if($_SESSION['employee']['role'] ==! 'manager' or $_SESSION['employee']['role'] ==! 'admin'){
+    $_SESSION['message'] = 'Немає прав доступу';
+    header('Location: ../../index.php');
+}
 $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 ?>
 <!doctype html>

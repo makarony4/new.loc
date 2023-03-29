@@ -1,7 +1,10 @@
 <?php
 session_start();
 require_once ('../connect.php');
-
+if($_SESSION['employee']['role'] ==! 'manager' or $_SESSION['employee']['role'] ==! 'admin'){
+    $_SESSION['message'] = 'Немає прав доступу';
+    header('Location: ../../index.php');
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,8 +27,30 @@ require_once ('../connect.php');
         }
     </style>
 </head>
+<header>
+    <?php
+
+    if(isset($_SESSION['alert'])){?>
+
+    <h3><?=$_SESSION['alert']?></h3>
+
+    <?php
+    unset($_SESSION['alert']);
+    }
+    ?>
+<?php
+    if(isset($_SESSION['employee'])) {?>
+        <a href = "config/logout.php" class="logout" > Log Out </a >
+        <?php
+    }
+    ?>
+</header>
 <body>
+<?php if($_SESSION['employee']['role'] == 'admin'){?>
 <h1><a href="index.php">Admin Panel</a></h1>
+<?php
+}
+?>
 <h1><a href="../../index.php">Products Page</a></h1>
 
 
