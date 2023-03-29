@@ -16,7 +16,7 @@ $_SESSION['employee'] = [
 ];
 
 
-if($login == $result['login'] and $password = $result['password']){
+if($login == $result['login'] and $password = md5($result['password'])){
     if($result['role'] == 'admin'){
         header('Location: ../index.php');
     }
