@@ -2,7 +2,7 @@
 session_start();
 require_once ('../connect.php');
 if($_SESSION['employee']['role'] ==! 'manager' or $_SESSION['employee']['role'] ==! 'admin'){
-    $_SESSION['message'] = 'Немає прав доступу';
+    $_SESSION['denyaccess'] = 'Немає прав доступу';
     header('Location: ../../index.php');
 }
 ?>

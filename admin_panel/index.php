@@ -15,7 +15,7 @@ if(!isset($_SESSION['employee'])){
 
 if(isset($_SESSION['employee'])){
     if($_SESSION['employee']['role'] !== 'admin'){
-        $_SESSION['message'] = 'Недостатньо прав доступу';
+        $_SESSION['denyaccess'] = 'Недостатньо прав доступу';
         header("location:javascript:history.go(-1)");
     }
 }

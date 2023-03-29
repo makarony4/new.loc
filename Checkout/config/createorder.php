@@ -11,6 +11,7 @@ $columns .= $key . ",";
 $columns = substr($columns, 0 , -1);
 
 
+
 insertOrder('orders',$columns,$_POST);
 $last_order_id= (mysqli_insert_id($connect));
 

@@ -1,4 +1,5 @@
 <?php
+require_once ('../connect.php');
 session_start();
 if(isset($_SESSION['user'])){
     header('Location: profile.php');
@@ -39,6 +40,12 @@ if(isset($_SESSION['user'])){
             echo '<p class="msg">'. $_SESSION['message'] . '</p>';
         }
         unset($_SESSION['message']);
+
+        if (isset($_SESSION['duplicate']))
+        {
+            echo '<p class="msg">'. $_SESSION['duplicate'] . '</p>';
+        }
+        unset($_SESSION['duplicate']);
 
  ?>
     </form>
