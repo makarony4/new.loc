@@ -2,7 +2,7 @@
 session_start();
 require_once ('config/connect.php');
 //переадресація якщо юзер залогінився
-if(isset($_SESSION['user'])){
+if(isset($_COOKIE['login'])){
     header('Location: profile.php');
 }
 ?>
@@ -31,6 +31,7 @@ if(isset($_SESSION['user'])){
         <input type="text" name="login" placeholder="Press your login">
         <label>Password</label>
         <input type="password" name="password" placeholder="Press your password">
+        <label><input type="checkbox" name="rememberme">Stay Logged in</label>
         <button type="submit">Login</button>
         <p>
             Have not account? - <a href="register.php">Register</a>!
@@ -41,6 +42,12 @@ if(isset($_SESSION['user'])){
             echo '<p class="msg">'. $_SESSION['success'] . '</p>';
         }
         unset($_SESSION['success']);
+
+         if (isset($_SESSION['loginfail']))
+         {
+             echo '<p class="msg">'. $_SESSION['loginfail'] . '</p>';
+         }
+         unset($_SESSION['loginfail']);
         ?>
 
     </form>

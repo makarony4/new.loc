@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once ('../connect.php');
-if(!$_SESSION['user']){
+if(!isset($_COOKIE['login'])){
     header('Location: index.php');
 }
 $email = $_SESSION['user']['email'];
