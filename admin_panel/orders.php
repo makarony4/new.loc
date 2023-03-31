@@ -44,6 +44,8 @@ if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
         <?php
     }
     ?>
+    <p>Signed in by:</p><h3><?=$_COOKIE['name']?></h3>
+
 </header>
 <body>
 <?php if($_COOKIE['role'] == 'admin'){?>

@@ -47,6 +47,7 @@ if(isset($_COOKIE['login'])){
     <?php
     }
     ?>
+    <h3><?=$_COOKIE['name']?></h3>
 </header>
 <body>
 <h1><a href="orders.php" class="link-primary">Orders</a></h1>
