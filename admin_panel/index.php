@@ -8,13 +8,13 @@ session_start();
 $products = mysqli_query($connect,"SELECT * FROM `products`");
 $products = mysqli_fetch_all($products);
 
-if(!isset($_SESSION['employee'])){
+if(!isset($_COOKIE['login'])){
     $_SESSION['message'] = 'Немає прав доступу';
     header("location: ../index.php");
 }
 
-if(isset($_SESSION['employee'])){
-    if($_SESSION['employee']['role'] !== 'admin'){
+if(isset($_COOKIE['login'])){
+    if($_COOKIE['role'] !== 'admin'){
         $_SESSION['denyaccess'] = 'Недостатньо прав доступу';
         header("location:javascript:history.go(-1)");
     }
@@ -42,7 +42,7 @@ if(isset($_SESSION['employee'])){
 </style>
 <header>
     <?php
-    if(isset($_SESSION['employee'])) {?>
+    if(isset($_COOKIE['login'])) {?>
         <a href = "config/logout.php" class="logout" > Log Out </a >
     <?php
     }

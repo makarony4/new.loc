@@ -3,7 +3,7 @@ require_once ('../connect.php');
 
 session_start();
 
-if($_SESSION['employee']['role'] ==! 'manager' or $_SESSION['employee']['role'] ==! 'admin'){
+if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
     $_SESSION['denyaccess'] = 'Немає прав доступу';
     header('Location: ../../index.php');
 }

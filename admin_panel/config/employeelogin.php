@@ -16,9 +16,16 @@ $_SESSION['employee'] = [
 ];
 
 
-if($login == $result['login'] and $password = md5($result['password'])){
+if($login == $result['login'] and $password == md5($result['password'])){
     setcookie('login', $result['login'], time()+3600, '/');
+    setcookie('role', $result['role'], time()+ 3600, '/');
+    if(isset($_POST['rememberme']) and $_POST['rememberme']== 'on'){
+        setcookie('login', $result['login'], time()+86000, '/');
+        setcookie('role', $result['role'], time()+ 86000, '/');
+
     }
+
+}
     if($result['role'] == 'admin'){
         header('Location: ../index.php');
     }
@@ -29,11 +36,7 @@ if($login == $result['login'] and $password = md5($result['password'])){
     $_SESSION['faillogin'] = 'Невірний логін або пароль';
 }
 
-if(isset($_POST['rememberme']) and $_POST['rememberme']== 'on'){
-    setcookie('login', $result['login'], time()+86000, '/');
-    setcookie('role', $result['role'], time()+ 86000, '/');
 
-}
 
 
 
