@@ -4,7 +4,12 @@ require_once ('../connect.php');
 if(!isset($_COOKIE['login'])){
     header('Location: index.php');
 }
-$email = $_SESSION['user']['email'];
+$login = $_COOKIE['login'];
+
+$email = $_COOKIE['email'];
+$user_info = mysqli_query($connect, "SELECT full_name, email, avatar FROM users WHERE login = '$login' ");
+$user_info = mysqli_fetch_assoc($user_info);
+
 
 $orders = mysqli_query($connect, "SELECT * FROM orders where email = '$email'");
 $orders = mysqli_fetch_all($orders);
@@ -31,9 +36,9 @@ $orders = mysqli_fetch_all($orders);
 </head>
 <body>
 <form>
-    <img src="<?= $_SESSION['user']['avatar']?>" width="100" alt="">
-    <h2><?=$_SESSION['user']['full_name']?></h2>
-    <a href="#"><?=$_SESSION['user']['email']?></a>
+    <img src="<?=$user_info['avatar']?>" width="100" alt="">
+    <h2><?=$user_info['full_name']?></h2>
+    <a href="#"><?=$user_info['email']?></a>
     <a href="vendor/logout.php" class="logout">Log Out</a>
 </form>
 <h3>Orders History</h3>

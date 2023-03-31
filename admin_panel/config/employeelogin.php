@@ -17,15 +17,22 @@ $_SESSION['employee'] = [
 
 
 if($login == $result['login'] and $password = md5($result['password'])){
+    setcookie('login', $result['login'], time()+3600, '/');
+    }
     if($result['role'] == 'admin'){
         header('Location: ../index.php');
     }
     elseif($result['role'] == 'manager'){
         header('Location: ../orders.php');
-    }
 }else {
     header('Location: ../login.php');
     $_SESSION['faillogin'] = 'Невірний логін або пароль';
+}
+
+if(isset($_POST['rememberme']) and $_POST['rememberme']== 'on'){
+    setcookie('login', $result['login'], time()+86000, '/');
+    setcookie('role', $result['role'], time()+ 86000, '/');
+
 }
 
 

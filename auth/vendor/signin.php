@@ -19,12 +19,12 @@ if(mysqli_num_rows($check_user) > 0){
         'avatar' => $user['avatar'],
         'email' => $user['email']
     ];
+    setcookie('login', $login, time() + 3600, '/');
+    setcookie('email', $_SESSION['user']['email'], time() + 3600, '/');
+
     if(isset($_POST['rememberme']) && $_POST['rememberme'] == 'on'){
-        setcookie('login', $login, time() + 3600, '/');
-        setcookie('password', $password, time() + 3600, '/');
-        setcookie('full_name', $_SESSION['user']['full_name'], time() + 3600, '/');
-        setcookie('email', $_SESSION['user']['email'], time() + 3600, '/');
-        setcookie('avatar', $_SESSION['user']['avatar'], time() + 3600, '/');
+        setcookie('login', $login, time() + 86000, '/');
+        setcookie('password', $password, time() + 86000, '/');
 
     }
     header('Location: ../profile.php');
