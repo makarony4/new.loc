@@ -10,7 +10,7 @@ $products = mysqli_fetch_all($products);
 
 if(!isset($_COOKIE['login'])){
     $_SESSION['message'] = 'Немає прав доступу';
-    header("location: ../index.php");
+    header("location:javascript:history.go(-1)");
 }
 
 if(isset($_COOKIE['login'])){
@@ -48,6 +48,7 @@ if(isset($_COOKIE['login'])){
     }
     ?>
     <h3><?=$_COOKIE['name']?></h3>
+    <h2><a href="create_product.php">Create Product</a></h2>
 </header>
 <body>
 <h1><a href="orders.php" class="link-primary">Orders</a></h1>
@@ -78,19 +79,6 @@ if(isset($_COOKIE['login'])){
     <?php
 }
     ?>
-</table><br><br>
-<form action="config/create.php" method="post" enctype = "multipart/form-data">
-    <h3>Create new product</h3>
-    <p>Photo</p>
-    <input type="file" name="photo">
-    <p>Title</p>
-    <input type="text" name="title">
-    <p>Price</p> <br>
-    <input type="number" name="price">
-    <p>Description</p> <br>
-    <textarea name="description"></textarea> <br>
-    <button type="submit">Create new product</button>
-</form>
 </table><br><br>
 </body>
 </html>
