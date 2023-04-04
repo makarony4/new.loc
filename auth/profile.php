@@ -1,10 +1,10 @@
 <?php
 session_start();
 require_once ('../connect.php');
-if(!isset($_COOKIE['login'])){
+if(!isset($_COOKIE['login_user'])){
     header('Location: index.php');
 }
-$login = $_COOKIE['login'];
+$login = $_COOKIE['login_user'];
 
 $email = $_COOKIE['email'];
 $user_info = mysqli_query($connect, "SELECT full_name, email, avatar FROM users WHERE login = '$login' ");

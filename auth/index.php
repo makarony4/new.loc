@@ -2,7 +2,7 @@
 session_start();
 require_once ('config/connect.php');
 //переадресація якщо юзер залогінився
-if(isset($_COOKIE['login'])){
+if(isset($_COOKIE['login_user'])){
     header('Location: profile.php');
 }
 ?>
