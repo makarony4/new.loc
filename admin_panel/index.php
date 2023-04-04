@@ -34,10 +34,14 @@ if(isset($_COOKIE['login'])){
     }
     th{
         background:#606060;
+        color: white;
     }
 
     td{
         background: bisque;
+    }
+    a{
+        color: darkslateblue;
     }
 </style>
 <header>
@@ -48,11 +52,13 @@ if(isset($_COOKIE['login'])){
     }
     ?>
     <h3><?=$_COOKIE['name']?></h3>
-    <h2><a href="create_product.php">Create Product</a></h2>
 </header>
 <body>
 <h1><a href="orders.php" class="link-primary">Orders</a></h1>
+<h2><a href="users.php">Users</a></h2>
+
 <a href = "../index.php">Products page</a>
+
 <table>
     <tr>
         <th>ID</th>
@@ -60,6 +66,8 @@ if(isset($_COOKIE['login'])){
         <th>Price</th>
         <th>Description</th>
         <th>Photo</th>
+        <th><h2><a href="create_product.php">Create Product</a></h2>
+        </th>
 
     </tr>
 
