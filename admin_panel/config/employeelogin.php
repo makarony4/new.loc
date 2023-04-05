@@ -19,14 +19,14 @@ $_SESSION['employee'] = [
 
 if($login == $result['login'] and $password == $result['password']){
     if (isset($_POST['rememberme']) and $_POST['rememberme'] == 'on') {
-        setcookie('login', $result['login'], time() + 86000, '/');
-        setcookie('role', $result['role'], time() + 86000, '/');
-        setcookie('name', $result['full_name'], time() + 86000, '/');
+        setcookie('login', $result['login'], time() + 60*60*24*30, '/');
+        setcookie('role', $result['role'], time() + 60*60*24*30, '/');
+        setcookie('name', $result['full_name'], time() + 60*60*24*30, '/');
 
     }
-        setcookie('login', $result['login'], time() + 3600, '/');
-        setcookie('role', $result['role'], time() + 3600, '/');
-    setcookie('name', $result['full_name'], time() + 3600, '/');
+        setcookie('login', $result['login'], time() + 86000, '/');
+        setcookie('role', $result['role'], time() + 86000, '/');
+    setcookie('name', $result['full_name'], time() + 86000, '/');
 
 }
 
