@@ -3,7 +3,7 @@ session_start();
 require_once('./connect.php');
 error_reporting(1);
 $total = 0;
-if(isset($_SESSION['employee'])){?>
+if(isset($_COOKIE['role']) && $_COOKIE['role'] =='admin'){?>
 <a href="admin_panel/index.php"><h3>Admin Panel</h3></a>
 <?php
 }

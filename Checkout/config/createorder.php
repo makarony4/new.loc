@@ -2,7 +2,10 @@
 session_start();
 require_once ('../../connect.php');
 require_once ('../../funcs/funcs.php');
-$last_order_id= (mysqli_insert_id($connect));
+
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+
 
 $columns = '';
 foreach ($_POST as $key => $value){
@@ -10,8 +13,8 @@ $columns .= $key . ",";
 }
 $columns = substr($columns, 0 , -1);
 
-
-
+mysqli_begin_transaction($connect);
+try{
 insertOrder('orders',$columns,$_POST);
 $last_order_id= (mysqli_insert_id($connect));
 
@@ -35,7 +38,14 @@ foreach ($_SESSION['cart'] as $key => $value){
 }
 //var_dump(getParams($_POST));
 insertOrder('order_products', $products_column, $product_params);
+mysqli_commit($connect);
+}catch (mysqli_sql_exception $exception){
+    mysqli_rollback($connect);
 
+    throw $exception;
+}
+
+mysqli_close($connect);
 
 //перенаправляємо на сторінку подяки, відміняємо сесію корзини
 header('Location: ../typage.php');

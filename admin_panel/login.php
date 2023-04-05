@@ -1,7 +1,11 @@
 <?php
 session_start();
 require_once ('../connect.php');
+if(isset($_COOKIE['login'])){
+    header('Location:orders.php');
+}
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -19,6 +23,7 @@ require_once ('../connect.php');
         <input type="text" name="login" placeholder="Press your login">
         <label>Password</label>
         <input type="password" name="password" placeholder="Press your password">
+        <label><input type="checkbox" name="rememberme">Remember Me</label>
         <button type="submit">Login</button>
 
             <?php

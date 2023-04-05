@@ -8,13 +8,13 @@ session_start();
 $products = mysqli_query($connect,"SELECT * FROM `products`");
 $products = mysqli_fetch_all($products);
 
-if(!isset($_SESSION['employee'])){
+if(!isset($_COOKIE['login'])){
     $_SESSION['message'] = 'Немає прав доступу';
-    header("location: ../index.php");
+    header("location:javascript:history.go(-1)");
 }
 
-if(isset($_SESSION['employee'])){
-    if($_SESSION['employee']['role'] !== 'admin'){
+if(isset($_COOKIE['login'])){
+    if($_COOKIE['role'] !== 'admin'){
         $_SESSION['denyaccess'] = 'Недостатньо прав доступу';
         header("location:javascript:history.go(-1)");
     }
@@ -34,23 +34,31 @@ if(isset($_SESSION['employee'])){
     }
     th{
         background:#606060;
+        color: white;
     }
 
     td{
         background: bisque;
     }
+    a{
+        color: darkslateblue;
+    }
 </style>
 <header>
     <?php
-    if(isset($_SESSION['employee'])) {?>
+    if(isset($_COOKIE['login'])) {?>
         <a href = "config/logout.php" class="logout" > Log Out </a >
     <?php
     }
     ?>
+    <h3><?=$_COOKIE['name']?></h3>
 </header>
 <body>
 <h1><a href="orders.php" class="link-primary">Orders</a></h1>
+<h2><a href="users.php">Users</a></h2>
+
 <a href = "../index.php">Products page</a>
+
 <table>
     <tr>
         <th>ID</th>
@@ -58,6 +66,8 @@ if(isset($_SESSION['employee'])){
         <th>Price</th>
         <th>Description</th>
         <th>Photo</th>
+        <th><h2><a href="create_product.php">Create Product</a></h2>
+        </th>
 
     </tr>
 
@@ -77,19 +87,6 @@ if(isset($_SESSION['employee'])){
     <?php
 }
     ?>
-</table><br><br>
-<form action="config/create.php" method="post" enctype = "multipart/form-data">
-    <h3>Create new product</h3>
-    <p>Photo</p>
-    <input type="file" name="photo">
-    <p>Title</p>
-    <input type="text" name="title">
-    <p>Price</p> <br>
-    <input type="number" name="price">
-    <p>Description</p> <br>
-    <textarea name="description"></textarea> <br>
-    <button type="submit">Create new product</button>
-</form>
 </table><br><br>
 </body>
 </html>

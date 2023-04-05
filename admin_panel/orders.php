@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once ('../connect.php');
-if($_SESSION['employee']['role'] ==! 'manager' or $_SESSION['employee']['role'] ==! 'admin'){
+if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
     $_SESSION['denyaccess'] = 'Немає прав доступу';
     header('Location: ../../index.php');
 }
@@ -39,14 +39,16 @@ if($_SESSION['employee']['role'] ==! 'manager' or $_SESSION['employee']['role'] 
     }
     ?>
 <?php
-    if(isset($_SESSION['employee'])) {?>
+    if(isset($_COOKIE['login'])) {?>
         <a href = "config/logout.php" class="logout" > Log Out </a >
         <?php
     }
     ?>
+    <p>Signed in by:</p><h3><?=$_COOKIE['name']?></h3>
+
 </header>
 <body>
-<?php if($_SESSION['employee']['role'] == 'admin'){?>
+<?php if($_COOKIE['role'] == 'admin'){?>
 <h1><a href="index.php">Admin Panel</a></h1>
 <?php
 }
