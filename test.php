@@ -2,9 +2,14 @@
 require_once('connect.php');
 
 mysqli_query($connect, "SELECT * FROM orders");
-$columns = array('id','full_name','number', 'city', 'address', 'order_date', 'order_status', 'email');
-$column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
-$sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+if(isset($_GET['filter_list'])){
+    $column = $_GET['filter_list'];
+    $sort_order = 'asc';
+}else {
+    $columns = array('id', 'full_name', 'number', 'city', 'address', 'order_date', 'order_status', 'email');
+    $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
+    $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+}
 if ($result = mysqli_query($connect, 'SELECT * FROM orders ORDER BY ' .  $column . ' ' . $sort_order)) {
 $up_or_down = str_replace(array('ASC','DESC'), array('up','down'), $sort_order);
 $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
@@ -61,6 +66,24 @@ $add_class = ' class="highlight"';
     </style>
 </head>
 <body>
+<form action="test.php" id="filter_by" method="get">
+    <input type="submit" name="submit_filter">
+</form>
+<br>
+
+<label for="drop_filter">Choose a filter:</label>
+<select id="drop_filter" name="filter_list" form="filter_by">
+    <option value="id">id</option>
+    <option value="full_name">Name</option>
+    <option value="number">Number</option>
+    <option value="city">City</option>
+    <option value="address">Address</option>
+    <option value="order_date">Order Date</option>
+    <option value="order_status">Order Status</option>
+    <option value="email">Email</option>
+</select>
+
+<br><br>
 <table>
 <tr>
     <th><a href="test.php?column=id&order=<?php echo $asc_or_desc; ?>">Id<i class="fas fa-sort<?php echo $column == 'id' ? '-' . $up_or_down : ''; ?>"></i></a></th>

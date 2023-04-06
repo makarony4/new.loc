@@ -1,11 +1,18 @@
 <?php
 require_once ('../connect.php');
-$ttl = mysqli_query($connect, "SELECT sum(total_price) from order_products as TTL");
-$ttl = mysqli_fetch_assoc($ttl);
-$avg = mysqli_query($connect, "SELECT avg(total_price) as average from order_products");
-$row = mysqli_fetch_assoc($avg);
-$order_count = mysqli_query($connect, "SELECT count(id) as order_count FROM orders");
-$count = mysqli_fetch_assoc($order_count);
+////$columns = implode(",", $columns);
+//mysqli_query($connect, "SELECT '$columns'  FROM orders")
+$sql = "SELECT * FROM orders";
+
+
+if (!empty($_POST['search_by'])) {
+    $search = $_POST['search_by'];
+    $column = $_POST['column'];
+}
+if (!empty($_POST['start']) or !empty($_POST['to'])){
+$from_date = $_POST['start'];
+$to_date = $_POST['to'];
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -57,17 +64,86 @@ $count = mysqli_fetch_assoc($order_count);
     </style>
 </head>
 <body>
+<h3>
+    <p>Filter by</p>
+</h3>
+<form action="stats.php" method="post" id="filter_by">
+    <input type="search" name="search_by"><br><br>
+    <label>Date from</label>
+    <input type="date" name="start" min="2023-01-01">
+    <label>To:</label>
+    <input type="date" name="to" min="2023-01-02">
+    <br>
+    <input type="submit">
+</form>
+<br>
+
+<label for="columns">Choose a value for search: </label>
+<select name="column" id="column" form="filter_by">
+    <option value=""></option>
+    <option value="id">ID</option>
+    <option value="full_name">Name</option>
+    <option value="number">Number</option>
+    <option value="order_status">Orders Status</option>
+    <option value="email">Email</option>
+</select>
+<br><br>
+<?php
+print_r($_POST);
+?>
 <table>
     <tr>
-    <th>TTl orders sum</th>
-    <th>AVG</th>
-    <th>Order Count</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Number</th>
+        <th>City</th>
+        <th>Address</th>
+        <th>Orders Date</th>
+        <th>Order Status</th>
+        <th>Email</th>
     </tr>
+    <?php
+
+    function findQuery(){
+        if(!empty($_POST['search_by'] && !empty($_POST['column']))){
+            $sql = "SELECT * FROM orders where $column like '%$search%'";
+        }
+        if (!empty($_POST['start']) && !empty($_POST['to'])){
+            $sql = "SELECT * FROM orders where order_date between '$from_date' and '$to_date'";
+        }elseif (!empty($_POST['start']) && empty($_POST['to'])){
+            $sql = "SELECT * FROM orders where order_date > '$from_date'";
+        }elseif (empty($_POST['start']) && !empty($_POST['to'])){
+            $sql = "SELECT * FROM orders where order_date < '$to_date'";
+
+        }
+        return $sql;
+    }
+
+
+        $sql = mysqli_query($connect, $sql);
+        $result = mysqli_fetch_all($sql);
+    if (mysqli_num_rows($sql)== 0){
+        $not_find = 'Елементів з Ввашим запитом не знайдено, ввиедено всі замовлення';
+    }
+        foreach ($result as $value){
+    ?>
     <tr>
-        <td><?=$ttl['sum(total_price)']?></td>
-        <td><?=$row['average']?></td>
-        <td><a href="orders.php"><?=$count['order_count']?></a></td>
+        <td><?=$value[0]?></td>
+        <td><?=$value[1]?></td>
+        <td><?=$value[2]?></td>
+        <td><?=$value[3]?></td>
+        <td><?=$value[4]?></td>
+        <td><?=$value[5]?></td>
+        <td><?=$value[6]?></td>
+        <td><?=$value[7]?></td>
     </tr>
+    <?php
+    }
+    if (isset($not_find)){
+        echo "<h3 style='color: red'>$not_find</h3>";
+    }
+    ?>
 </table>
+
 </body>
 </html>
