@@ -103,8 +103,6 @@ print_r($_POST);
         <th>Email</th>
     </tr>
     <?php
-
-    function findQuery(){
         if(!empty($_POST['search_by'] && !empty($_POST['column']))){
             $sql = "SELECT * FROM orders where $column like '%$search%'";
         }
@@ -112,12 +110,9 @@ print_r($_POST);
             $sql = "SELECT * FROM orders where order_date between '$from_date' and '$to_date'";
         }elseif (!empty($_POST['start']) && empty($_POST['to'])){
             $sql = "SELECT * FROM orders where order_date > '$from_date'";
-        }elseif (empty($_POST['start']) && !empty($_POST['to'])){
+        }elseif (empty($_POST['start']) && !empty($_POST['to'])) {
             $sql = "SELECT * FROM orders where order_date < '$to_date'";
-
         }
-        return $sql;
-    }
 
 
         $sql = mysqli_query($connect, $sql);
