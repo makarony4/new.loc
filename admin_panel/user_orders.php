@@ -28,6 +28,7 @@ $result = mysqli_query($connect, "SELECT * FROM orders where email = '$email' or
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
+<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <h3><a href="users.php">Back to Users</a></h3>
 <h3>Orders History</h3>
 <table>

@@ -20,6 +20,8 @@ mysqli_close($connect);
     <title>Update</title>
 </head>
 <body>
+<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+
 <h3>UPDATE PRODUCT</h3>
 <form action="config/update.php" method="post" enctype = "multipart/form-data">
     <p>Photo</p>
