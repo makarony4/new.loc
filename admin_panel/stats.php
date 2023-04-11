@@ -1,28 +1,5 @@
 <?php
-require_once ('../connect.php');
-////$columns = implode(",", $columns);
-//mysqli_query($connect, "SELECT '$columns'  FROM orders")
-$sql = "SELECT * FROM orders";
-$today = date("Y-m-d H:i:s");
-if (!empty($_POST['search_by'])) {
-    $search = $_POST['search_by'];
-    $column = $_POST['column'];
-}
-if (!empty($_POST['start']) or !empty($_POST['to'])){
-$from_date = $_POST['start'];
-$to_date = $_POST['to'];
-}
-
-$ttl = "SELECT sum(total_price) from order_products";
-$ttl = mysqli_query($connect, $ttl);
-$ttl = mysqli_fetch_assoc($ttl);
-
-$avg = mysqli_query($connect,"SELECT avg(total_price) FROM order_products");
-$avg = mysqli_fetch_assoc($avg);
-
-$count_orders = mysqli_query($connect, "SELECT count(id) from orders");
-$count_orders = mysqli_fetch_row($count_orders);
-
+require_once ('query.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -86,14 +63,13 @@ $count_orders = mysqli_fetch_row($count_orders);
 <form action="stats.php" method="post" id="filter_by">
     <input type="search" name="search_by"><br><br>
     <label>Date from</label>
-    <input type="date" name="start" min="2023-01-01">
+    <input type="date" name="start" min="2023-01-01" value="2023-01-01">
     <label>To:</label>
-    <input type="date" name="to" min="2023-01-02">
+    <input type="date" name="to" max="<?=$today?>" value="<?=$today?>">
     <br>
     <input type="submit">
 </form>
 <br>
-
 <label for="columns">Choose a value for search: </label>
 <select name="column" id="column" form="filter_by">
     <option value="id">ID</option>
@@ -116,20 +92,22 @@ $count_orders = mysqli_fetch_row($count_orders);
         <th>Total Price</th>
     </tr>
     <?php
-        if(isset($_POST['search_by']) &&!empty($_POST['search_by']) && !empty($_POST['column'])){
-            $sql = "SELECT * FROM orders where $column like '%$search%'";
-        }
+
         if (!empty($_POST['start']) && !empty($_POST['to'])){
             $sql = "SELECT * FROM orders where order_date >= '$from_date' and order_date <= '$to_date'";
             $date_count = mysqli_query($connect, "SELECT count(id) from orders where order_date >= '$from_date' and order_date <= '$to_date'");
             $date_count = mysqli_fetch_array($date_count);
+            $total_by_date = mysqli_query($connect, "select sum(total_price) from order_products inner join orders on order_products.order_id = orders.id where order_date >= '$from_date' and order_date <= '$to_date' ");
+            $total_by_date = mysqli_fetch_array($total_by_date);
+//            $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date >= '$from_date' and orders.order_date <= '$to_date'");
         }elseif (!empty($_POST['start']) && empty($_POST['to'])){
             $sql = "SELECT * FROM orders where order_date > '$from_date'";
         }elseif (empty($_POST['start']) && !empty($_POST['to'])) {
             $sql = "SELECT * FROM orders where order_date < '$to_date'";
         }
-
-
+    if(isset($_POST['search_by']) &&!empty($_POST['search_by'])){
+        $sql ="SELECT * FROM orders where $column like '%$search%'";
+    }
         $sql = mysqli_query($connect, $sql);
         $result = mysqli_fetch_all($sql);
     if (mysqli_num_rows($sql)== 0){
@@ -139,6 +117,13 @@ $count_orders = mysqli_fetch_row($count_orders);
         foreach ($result as $value){
             $total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = {$value[0]}");
             $total = mysqli_fetch_array($total);
+            if($value[6] == 0){
+                $value[6] = 'new';
+            }elseif ($value[6] == 1){
+                $value[6] = 'pending';
+            }else{
+                $value[6] = 'done';
+            }
             ?>
     <tr>
         <td><a href="order_details.php?id=<?=$value[0]?>"</a><?=$value[0]?></td>
@@ -163,20 +148,58 @@ $count_orders = mysqli_fetch_row($count_orders);
         <th>Total orders price</th>
         <th>AVG Receipt</th>
         <th>Orders Count</th>
-        <th>Order Count by date</th>
         <th>Sum orders bt date</th>
+        <th>Today orders count</th>
+        <th>Today orders sum</th>
+
     </tr>
     <tr>
         <td><?=$ttl['sum(total_price)']?></td>
         <td><?=$avg['avg(total_price)']?></td>
         <td><?=$count_orders[0]?></td>
-        <?php if (isset($date_count)){
-        echo "<td><?=$date_count[0]?></td>";
-        }
-        ?>
-        <td></td>
+        <td><?php
+            if(isset($total_by_date)){
+                echo $total_by_date[0];
+                }
+            ?></td>
+        <td><?=$today_orders[0]?></td>
+        <td><?=$today_sum[0]?></td>
     </tr>
 </table>
+<table>
+    <tr><th>Total Ordered qty</th></tr>
+    <tr><?php
+        $quantity = [];
 
+        foreach ($products as $product) {
+            if(!empty($_POST['start']) && !empty($_POST['to'])){
+            $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date >= '$from_date' and orders.order_date <= '$to_date'");}
+            elseif(!empty($_POST['start']) && empty($_POST['to'])){
+                $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date >= '$from_date'");}
+            elseif(empty($_POST['start']) && !empty($_POST['to'])){
+                $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date <= '$to_date'");
+            }else{
+                $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products where order_products.id = $product[1]");}
+
+
+
+
+//            $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = '$product[1]'");
+
+            $qty = mysqli_fetch_all($qty);
+            $quantity[] = $qty[0];
+            ?>
+        <th><?=$product[0]?></th>
+        <?php
+        }
+        ?>
+    </tr>
+    <tr>
+        <?php foreach ($quantity as $item) {
+            echo "<td>$item[0]</td>";
+        }
+    ?>
+    </tr>
+</table>
 </body>
 </html>
