@@ -92,22 +92,22 @@ require_once ('query.php');
         <th>Total Price</th>
     </tr>
     <?php
+    $sql = "SELECT * FROM orders " . (empty($_POST['start']) ? "where order_date <= '$to_date'" : NULL) .
+        (empty($_POST['to']) ? "where order_date >= '$from_date'" : NULL) .
+        (!empty($_POST['start']) && !empty($_POST['to']) ? "where order_date >= '$from_date' and order_date <= '$to_date'" : NULL);
+
 
         if (!empty($_POST['start']) && !empty($_POST['to'])){
-            $sql = "SELECT * FROM orders where order_date >= '$from_date' and order_date <= '$to_date'";
             $date_count = mysqli_query($connect, "SELECT count(id) from orders where order_date >= '$from_date' and order_date <= '$to_date'");
             $date_count = mysqli_fetch_array($date_count);
             $total_by_date = mysqli_query($connect, "select sum(total_price) from order_products inner join orders on order_products.order_id = orders.id where order_date >= '$from_date' and order_date <= '$to_date' ");
             $total_by_date = mysqli_fetch_array($total_by_date);
-//            $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date >= '$from_date' and orders.order_date <= '$to_date'");
-        }elseif (!empty($_POST['start']) && empty($_POST['to'])){
-            $sql = "SELECT * FROM orders where order_date > '$from_date'";
-        }elseif (empty($_POST['start']) && !empty($_POST['to'])) {
-            $sql = "SELECT * FROM orders where order_date < '$to_date'";
-        }
+
+
     if(isset($_POST['search_by']) &&!empty($_POST['search_by'])){
         $sql ="SELECT * FROM orders where $column like '%$search%'";
     }
+
         $sql = mysqli_query($connect, $sql);
         $result = mysqli_fetch_all($sql);
     if (mysqli_num_rows($sql)== 0){
@@ -161,6 +161,7 @@ require_once ('query.php');
             if(isset($total_by_date)){
                 echo $total_by_date[0];
                 }
+            }
             ?></td>
         <td><?=$today_orders[0]?></td>
         <td><?=$today_sum[0]?></td>
@@ -172,20 +173,11 @@ require_once ('query.php');
         $quantity = [];
 
         foreach ($products as $product) {
-            if(!empty($_POST['start']) && !empty($_POST['to'])){
-            $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date >= '$from_date' and orders.order_date <= '$to_date'");}
-            elseif(!empty($_POST['start']) && empty($_POST['to'])){
-                $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date >= '$from_date'");}
-            elseif(empty($_POST['start']) && !empty($_POST['to'])){
-                $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = $product[1] and orders.order_date <= '$to_date'");
-            }else{
-                $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products where order_products.id = $product[1]");}
-
-
-
-
-//            $qty = mysqli_query($connect, "SELECT sum(quantity) from order_products inner join orders on order_products.order_id = orders.id where order_products.id = '$product[1]'");
-
+            $qty = "SELECT sum(quantity) from order_products inner join orders on  order_products.order_id = orders.id
+                     where order_products.id = $product[1]" . (!empty($_POST['start']) && !empty($_POST['to']) ? " and 
+                     orders.order_date >= '$from_date' and orders.order_date <= '$to_date'": NULL) .
+                (empty($_POST['start']) ? " and orders.order_date <= '$to_date'" : NULL);
+            $qty = mysqli_query($connect, $qty);
             $qty = mysqli_fetch_all($qty);
             $quantity[] = $qty[0];
             ?>
