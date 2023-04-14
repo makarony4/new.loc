@@ -73,4 +73,4 @@ $result = mysqli_query($connect, "SELECT $columns FROM $table_name WHERE $equal"
 return $result;
 }
 
-$sql = dbSelectAll($connect, 'products');
+

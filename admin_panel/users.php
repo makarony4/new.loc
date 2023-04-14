@@ -4,7 +4,6 @@ if (!isset($_COOKIE['login'])){
     header('Location: ../index.php');
 }
 $query= mysqli_query($connect, "SELECT * from users");
-$query = mysqli_fetch_all($query);
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,16 +30,16 @@ $query = mysqli_fetch_all($query);
     </tr>
     <tr>
         <?php
-        foreach ($query as $item) {
-        $avatar = "../auth/" . $item[3];
+        while ($row = mysqli_fetch_assoc($query)) {
+        $avatar = "../auth/" . $row['avatar'];
 
         ?>
-        <td><?=$item[0]?></td>
-        <td><?=$item[1]?></td>
-        <td><?=$item[2]?></td>
-        <td><?=$item[4]?></td>
-        <td><a href="user_orders.php?email=<?=$item[2]?>">User orders</a></td>
-        <td><a href="vendor/delete_user.php?id=<?=mysqli_real_escape_string($connect, $item[0])?>">Delete</a></td>
+        <td><?=$row['id']?></td>
+        <td><?=$row['full_name']?></td>
+        <td><?=$row['email']?></td>
+        <td><?=$row['login']?></td>
+        <td><a href="user_orders.php?email=<?=$row['email']?>">User orders</a></td>
+        <td><a href="vendor/delete_user.php?id=<?=mysqli_real_escape_string($connect, $row['id'])?>">Delete</a></td>
     </tr>
     <?php
     }

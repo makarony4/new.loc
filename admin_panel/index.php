@@ -6,7 +6,6 @@ session_start();
 
 
 $products = mysqli_query($connect,"SELECT * FROM `products`");
-$products = mysqli_fetch_all($products);
 
 if(!isset($_COOKIE['login'])){
     $_SESSION['message'] = 'Немає прав доступу';
@@ -58,17 +57,17 @@ if(isset($_COOKIE['login'])){
 
     <?php
 
-    foreach ($products as $product) {
+    while ($row = mysqli_fetch_assoc($products)) {
         ?>
     <tr>
-        <td><?=$product[0]?></td>
-        <td><?=$product[1]?></td>
-        <td><?=$product[2]?></td>
-        <td><?=$product[3]?></td>
-        <td><img src="<?=$product[4]?>" width="100" height="100"></td>
-        <td><a href="update.php?id=<?=mysqli_real_escape_string($connect,$product[0])?>">Update</a></td>
-        <td><a href="vendor/delete.php?id=<?=mysqli_real_escape_string($connect, $product[0])?>">Delete</a> </td>
-        <td><a href="product_stats.php?id=<?=$product[0]?>">Stats by product</a></td>
+        <td><?=$row['id']?></td>
+        <td><?=$row['title']?></td>
+        <td><?=$row['price']?></td>
+        <td><?=$row['description']?></td>
+        <td><img src="<?=$row['photo']?>" width="100" height="100"></td>
+        <td><a href="update.php?id=<?=mysqli_real_escape_string($connect,$row['id'])?>">Update</a></td>
+        <td><a href="vendor/delete.php?id=<?=mysqli_real_escape_string($connect, $row['id'])?>">Delete</a> </td>
+        <td><a href="product_stats.php?id=<?=$row['id']?>">Stats by product</a></td>
     </tr>
     <?php
 }
