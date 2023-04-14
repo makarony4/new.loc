@@ -28,6 +28,8 @@ $query = mysqli_fetch_all($query);
     </style>
 </head>
 <body>
+<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+
 <h3><a href="index.php">Admin Panel</a></h3>
 <h3>Registered Users</h3>
 <table>

@@ -31,6 +31,7 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
     }
 </style>
 <body>
+<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <a href="orders.php">Back to orders</a>
 <table>
     <tr>

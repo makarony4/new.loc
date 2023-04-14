@@ -48,6 +48,8 @@ if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
 
 </header>
 <body>
+<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+
 <?php if($_COOKIE['role'] == 'admin'){?>
 <h1><a href="index.php">Admin Panel</a></h1>
 <?php

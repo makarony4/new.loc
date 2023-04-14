@@ -83,6 +83,7 @@ if(isset($_COOKIE['login'])){
         <td><img src="<?=$product[4]?>" width="100" height="100"></td>
         <td><a href="update.php?id=<?=mysqli_real_escape_string($connect,$product[0])?>">Update</a></td>
         <td><a href="delete.php?id=<?=mysqli_real_escape_string($connect, $product[0])?>">Delete</a> </td>
+        <td><a href="product_stats.php?id=<?=$product[0]?>">Stats by product</a></td>
     </tr>
     <?php
 }
