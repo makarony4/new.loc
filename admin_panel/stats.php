@@ -66,31 +66,30 @@ require_once ('query.php');
     }
 
         $sql = mysqli_query($connect, $sql);
-        $result = mysqli_fetch_all($sql);
     if (mysqli_num_rows($sql)== 0){
         $not_find = 'Елементів з Ввашим запитом не знайдено!';
         header('Location: stats.php');
     }
-        foreach ($result as $value){
-            $total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = {$value[0]}");
+        while ($row = mysqli_fetch_assoc($sql)){
+            $total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = {$row['id']}");
             $total = mysqli_fetch_array($total);
-            if($value[6] == 0){
-                $value[6] = 'new';
-            }elseif ($value[6] == 1){
-                $value[6] = 'pending';
+            if($row['order_status'] == 0){
+                $row['order_status'] = 'new';
+            }elseif ($row['order_status'] == 1){
+                $row['order_status'] = 'pending';
             }else{
-                $value[6] = 'done';
+                $row['order_status'] = 'done';
             }
             ?>
     <tr>
-        <td><a href="order_details.php?id=<?=$value[0]?>"</a><?=$value[0]?></td>
-        <td><a href="user_orders.php?email=<?=$value[7]?>"><?=$value[1]?></a></td>
-        <td><?=$value[2]?></td>
-        <td><?=$value[3]?></td>
-        <td><?=$value[4]?></td>
-        <td><?=$value[5]?></td>
-        <td><?=$value[6]?></td>
-        <td><?=$value[7]?></td>
+        <td><a href="order_details.php?id=<?=$row['id']?>"</a><?=$row['id']?></td>
+        <td><a href="user_orders.php?email=<?=$row['email']?>"><?=$row['full_name']?></a></td>
+        <td><?=$row['number']?></td>
+        <td><?=$row['city']?></td>
+        <td><?=$row['address']?></td>
+        <td><?=$row['order_date']?></td>
+        <td><?=$row['order_status']?></td>
+        <td><?=$row['email']?></td>
         <td><?=$total[0]?></td>
     </tr>
     <?php
@@ -128,16 +127,16 @@ require_once ('query.php');
     <tr><?php
         $quantity = [];
 
-        foreach ($products as $product) {
+        while ($row = mysqli_fetch_assoc($products)) {
             $qty = "SELECT sum(quantity) from order_products inner join orders on  order_products.order_id = orders.id
-                     where order_products.id = $product[1]" . (!empty($_POST['start']) && !empty($_POST['to']) ? " and 
+                     where order_products.id = {$row['id']}" . (!empty($_POST['start']) && !empty($_POST['to']) ? " and 
                      orders.order_date >= '$from_date' and orders.order_date <= '$to_date'": NULL) .
                 (empty($_POST['start']) ? " and orders.order_date <= '$to_date'" : NULL);
             $qty = mysqli_query($connect, $qty);
             $qty = mysqli_fetch_all($qty);
             $quantity[] = $qty[0];
             ?>
-        <th><?=$product[0]?></th>
+        <th><?=$row['title']?></th>
         <?php
         }
         ?>

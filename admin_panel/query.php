@@ -28,7 +28,6 @@ $today_sum = mysqli_query($connect, "select sum(total_price) from order_products
 $today_sum = mysqli_fetch_row($today_sum);
 
 $products = mysqli_query($connect, "SELECT title, id from products");
-$products = mysqli_fetch_all($products);
 
 
 ?>

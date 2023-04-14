@@ -12,15 +12,6 @@ function getParams(array $arr)
 }
 
 
-//беремо інфу з форми замовлення
-//function deliveryInfo(array $arr){
-//    $delivery_info = [];
-//    $item = array_values($arr);
-//    array_push($delivery_info, ...$item);
-//    return $delivery_info;
-//}
-
-
 //ловимо знаки питання для бінду
 function getMarks($count){
     global $product_params;
@@ -68,7 +59,7 @@ $result = mysqli_query($connect, "SELECT * FROM $table_name");
 return $result;
 }
 
-function dbSelectWhere($connect, $table_name, $equal, $columns = "*"){
+function dbSelectWhere($connect, $table_name, $equal, $columns = '*'){
 $result = mysqli_query($connect, "SELECT $columns FROM $table_name WHERE $equal");
 return $result;
 }

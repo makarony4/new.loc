@@ -39,7 +39,6 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 
     <?php
     $orders = mysqli_query($connect, "SELECT * FROM orders where id = '$order_id' ");
-
     $orders = mysqli_fetch_assoc($orders);
 
     $total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = '$order_id'");
