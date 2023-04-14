@@ -9,52 +9,9 @@ require_once ('query.php');
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stats</title>
-    <style>
-        html {
-            font-family: Tahoma, Geneva, sans-serif;
-            padding: 10px;
-        }
-        table,
-        td {
-            border: 1px solid black;
-        }
-
-        table {
-            float: left;
-            width: 30%;
-            margin: 10px;
-        }
-        th {
-            background-color: #54585d;
-            border: 1px solid #54585d;
-        }
-        th:hover {
-            background-color: #64686e;
-        }
-        th a {
-            display: block;
-            text-decoration:none;
-            padding: 10px;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        th a i {
-            margin-left: 5px;
-            color: rgba(255,255,255,0.4);
-        }
-        td {
-            padding: 10px;
-            color: #636363;
-            border: 1px solid #dddfe1;
-        }
-        tr {
-            background-color: #ffffff;
-        }
-        tr .highlight {
-            background-color: #f9fafb;
-        }
-    </style>
+    <?php
+    require_once ('../view/table_style.php')
+    ?>
 </head>
 <body>
 <h3>
@@ -151,7 +108,6 @@ require_once ('query.php');
         <th>Sum orders bt date</th>
         <th>Today orders count</th>
         <th>Today orders sum</th>
-
     </tr>
     <tr>
         <td><?=$ttl['sum(total_price)']?></td>

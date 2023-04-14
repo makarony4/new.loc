@@ -13,18 +13,7 @@ $result = mysqli_query($connect, "SELECT * FROM orders where email = '$email' or
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>User Orders</title>
-    <style>
-        th,td{
-            padding: 10px;
-        }
-        th{
-            background:#606060;
-        }
-
-        td{
-            background: bisque;
-        }
-    </style>
+    <?php require_once ('../view/table_style.php')?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>

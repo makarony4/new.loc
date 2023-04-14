@@ -28,22 +28,7 @@ if(isset($_COOKIE['login'])){
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
-<style>
-    th,td{
-        padding: 10px;
-    }
-    th{
-        background:#606060;
-        color: white;
-    }
-
-    td{
-        background: bisque;
-    }
-    a{
-        color: darkslateblue;
-    }
-</style>
+<?php require_once ('../view/table_style.php')?>
 <header>
     <?php
     if(isset($_COOKIE['login'])) {?>
@@ -82,7 +67,7 @@ if(isset($_COOKIE['login'])){
         <td><?=$product[3]?></td>
         <td><img src="<?=$product[4]?>" width="100" height="100"></td>
         <td><a href="update.php?id=<?=mysqli_real_escape_string($connect,$product[0])?>">Update</a></td>
-        <td><a href="delete.php?id=<?=mysqli_real_escape_string($connect, $product[0])?>">Delete</a> </td>
+        <td><a href="vendor/delete.php?id=<?=mysqli_real_escape_string($connect, $product[0])?>">Delete</a> </td>
         <td><a href="product_stats.php?id=<?=$product[0]?>">Stats by product</a></td>
     </tr>
     <?php

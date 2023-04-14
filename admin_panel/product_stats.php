@@ -13,22 +13,7 @@ $ordered_times  = mysqli_fetch_row($ordered_times);
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Product Stats</title>
-    <style>
-        th,td{
-            padding: 10px;
-        }
-        th{
-            background:#606060;
-            color: white;
-        }
-
-        td{
-            background: bisque;
-        }
-        a{
-            color: darkslateblue;
-        }
-    </style>
+<?php require_once ('../view/table_style.php')?>
 </head>
 <body>
 <table>

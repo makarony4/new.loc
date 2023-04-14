@@ -17,19 +17,9 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Order details</title>
-</head>
-<style>
-    th,td{
-        padding: 10px;
-    }
-    th{
-        background:#606060;
-    }
+    <?php require_once ('../view/table_style.php')?>
 
-    td{
-        background: bisque;
-    }
-</style>
+</head>
 <body>
 <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 <a href="orders.php">Back to orders</a>
