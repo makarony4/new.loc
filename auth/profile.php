@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ('../connect.php');
+require_once('../config/connect.php');
 if(!isset($_COOKIE['login_user'])){
     header('Location: index.php');
 }

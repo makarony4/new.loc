@@ -1,4 +1,7 @@
 <?php
+
+require_once ('../config/connect.php');
+
 //витягуємо параметри
 function getParams(array $arr)
 {
@@ -60,3 +63,14 @@ function insertOrder($table_name, $columns, $arr){
     mysqli_stmt_execute($stmt_products);
 }
 
+function dbSelectAll($connect, $table_name ){
+$result = mysqli_query($connect, "SELECT * FROM $table_name");
+return $result;
+}
+
+function dbSelectWhere($connect, $table_name, $equal, $columns = "*"){
+$result = mysqli_query($connect, "SELECT $columns FROM $table_name WHERE $equal");
+return $result;
+}
+
+$sql = dbSelectAll($connect, 'products');

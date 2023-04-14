@@ -1,5 +1,5 @@
 <?php
-require_once('../connect.php');
+require_once('../config/connect.php');
 
 
 
@@ -23,7 +23,7 @@ mysqli_close($connect);
 <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 
 <h3>UPDATE PRODUCT</h3>
-<form action="config/update.php" method="post" enctype = "multipart/form-data">
+<form action="vendor/update.php" method="post" enctype = "multipart/form-data">
     <p>Photo</p>
     <img src="<?=$product['photo']?>" width="100" height="100">
     <input type="file" name="photo" value="<?=$product['photo']?>" accept=".jpg, .jpeg, .png" >

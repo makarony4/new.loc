@@ -1,6 +1,6 @@
 <?php
 error_reporting(-1);
-require_once('../connect.php');
+require_once('../config/connect.php');
 session_start();
 
 
@@ -47,7 +47,7 @@ if(isset($_COOKIE['login'])){
 <header>
     <?php
     if(isset($_COOKIE['login'])) {?>
-        <a href = "config/logout.php" class="logout" > Log Out </a >
+        <a href = "vendor/logout.php" class="logout" > Log Out </a >
     <?php
     }
     ?>

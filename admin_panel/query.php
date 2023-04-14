@@ -1,5 +1,5 @@
 <?php
-require_once ('../connect.php');
+require_once('../config/connect.php');
 $sql = "SELECT * FROM orders";
 $today = date("Y-m-d");
 if (!empty($_POST['search_by'])) {

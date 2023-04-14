@@ -1,5 +1,5 @@
 <?php
-require_once('../connect.php');
+require_once('../config/connect.php');
 if (!isset($_COOKIE['login'])){
     header('Location: ../index.php');
 }
@@ -51,7 +51,7 @@ $query = mysqli_fetch_all($query);
         <td><?=$item[2]?></td>
         <td><?=$item[4]?></td>
         <td><a href="user_orders.php?email=<?=$item[2]?>">User orders</a></td>
-        <td><a href="config/delete_user.php?id=<?=mysqli_real_escape_string($connect, $item[0])?>">Delete</a></td>
+        <td><a href="vendor/delete_user.php?id=<?=mysqli_real_escape_string($connect, $item[0])?>">Delete</a></td>
     </tr>
     <?php
     }

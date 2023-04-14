@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../connect.php'); //db connect
+require_once('../config/connect.php'); //db connect
 error_reporting(1);
 $total = 0;
 //сиворення умови додавання в корзину
@@ -55,7 +55,7 @@ if(isset($_POST['add_to_cart'])){
 <a href="../index.php"><h1>Products page</h1></a>
 
 
-<form action="config/createorder.php?action=add_to_cart" name="delivery" method="post" style="padding: 10px">
+<form action="vendor/createorder.php?action=add_to_cart" name="delivery" method="post" style="padding: 10px">
     <p>Full Name</p>
     <input type="text" name="full_name" placeholder="Press your Full Name">
     <p>City</p>

@@ -1,4 +1,4 @@
-<form action="config/create.php" method="post" enctype = "multipart/form-data">
+<form action="vendor/create.php" method="post" enctype = "multipart/form-data">
     <h3>Create new product</h3>
     <p>Photo</p>
     <input type="file" name="photo">

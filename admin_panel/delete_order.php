@@ -1,5 +1,5 @@
 <?php
-require_once('../connect.php');
+require_once('../config/connect.php');
 
 $id = mysqli_escape_string($connect, $_GET['id']);
 $sql  = "DELETE FROM orders WHERE `orders`.`id` = ?";

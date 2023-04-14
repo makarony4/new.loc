@@ -1,5 +1,5 @@
 <?php
-require_once('../../connect.php');
+require_once('../../config/connect.php');
 $photo = $_FILES['photo']['name'];
 $photo_tmp = $_FILES['photo']['tmp_name'];
 $id = mysqli_real_escape_string($connect, $_POST['id']);
