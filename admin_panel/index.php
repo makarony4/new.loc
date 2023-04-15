@@ -52,9 +52,7 @@ if(isset($_COOKIE['login'])){
         <th>Photo</th>
         <th><h2><a href="create_product.php">Create Product</a></h2>
         </th>
-
     </tr>
-
     <?php
 
     while ($row = mysqli_fetch_assoc($products)) {
