@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ('../config/connect.php');
+require_once ('../../config/connect.php');
 $full_name = $_POST['full_name'];
 $login = $_POST['login'];
 $email = $_POST['email'];

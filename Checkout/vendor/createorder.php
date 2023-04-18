@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ('../../connect.php');
+require_once('../../connect.php');
 require_once ('../../funcs/funcs.php');
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);

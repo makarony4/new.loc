@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ('../config/connect.php');
+require_once ('../../config/connect.php');
 $login = $_POST['login'];
 $password = md5($_POST['password']);
 $sql = "SELECT * FROM users WHERE login = ? AND password = ?";

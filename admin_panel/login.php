@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ('../connect.php');
+require_once('../config/connect.php');
 if(isset($_COOKIE['login'])){
     header('Location:orders.php');
 }
@@ -18,7 +18,7 @@ if(isset($_COOKIE['login'])){
 <header>
 
 </header>
-    <form action="config/employeelogin.php" method="post">
+    <form action="vendor/employeelogin.php" method="post">
         <label>Login</label>
         <input type="text" name="login" placeholder="Press your login">
         <label>Password</label>

@@ -1,5 +1,5 @@
 <?php
-require_once ('../connect.php');
+require_once('../config/connect.php');
 
 session_start();
 
@@ -17,22 +17,16 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Order details</title>
-</head>
-<style>
-    th,td{
-        padding: 10px;
-    }
-    th{
-        background:#606060;
-    }
+    <?php require_once ('../view/table_style.php')?>
 
-    td{
-        background: bisque;
-    }
-</style>
+</head>
 <body>
-<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
-<a href="orders.php">Back to orders</a>
+<header>
+    <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+    <br>
+    <a href="orders.php">Back to orders</a>
+</header>
+
 <table>
     <tr>
         <th>Order ID</th>
@@ -45,7 +39,6 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 
     <?php
     $orders = mysqli_query($connect, "SELECT * FROM orders where id = '$order_id' ");
-
     $orders = mysqli_fetch_assoc($orders);
 
     $total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = '$order_id'");
@@ -69,12 +62,8 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 
 <?php
 $ordered_products = mysqli_query($connect, "SELECT * FROM order_products where order_id = '$order_id'");
-$ordered_products = mysqli_fetch_all($ordered_products);
-
 
 ?>
-
-
 <table>
     <tr>
         <th>Product id</th>
@@ -83,15 +72,15 @@ $ordered_products = mysqli_fetch_all($ordered_products);
         <th>Quantity</th>
         <th>Total price</th>
     </tr>
-    <?php foreach ($ordered_products as $ordered_product){
+    <?php while ($row = mysqli_fetch_assoc($ordered_products)){
 
         ?>
     <tr>
-        <td><?=$ordered_product[1]?></td>
-        <td><?=$ordered_product[3]?></td>
-        <td><?=$ordered_product[4]?></td>
-        <td><?=$ordered_product[2]?></td>
-        <td><?=$ordered_product[5]?></td>
+        <td><?=$row['id']?></td>
+        <td><?=$row['title']?></td>
+        <td><?=$row['price']?></td>
+        <td><?=$row['quantity']?></td>
+        <td><?=$row['total_price']?></td>
     </tr>
 
         <?php

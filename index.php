@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('./connect.php');
+require_once('config/connect.php');
 error_reporting(1);
 $total = 0;
 if(isset($_COOKIE['role']) && $_COOKIE['role'] =='admin'){?>

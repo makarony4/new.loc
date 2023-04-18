@@ -1,5 +1,5 @@
 <?php
-require_once ('../connect.php');
+require_once('../config/connect.php');
 $sql = "SELECT * FROM orders";
 $today = date("Y-m-d");
 if (!empty($_POST['search_by'])) {
@@ -28,7 +28,6 @@ $today_sum = mysqli_query($connect, "select sum(total_price) from order_products
 $today_sum = mysqli_fetch_row($today_sum);
 
 $products = mysqli_query($connect, "SELECT title, id from products");
-$products = mysqli_fetch_all($products);
 
 
 ?>

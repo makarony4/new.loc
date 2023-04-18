@@ -1,4 +1,7 @@
 <?php
+
+require_once ('../config/connect.php');
+
 //витягуємо параметри
 function getParams(array $arr)
 {
@@ -7,15 +10,6 @@ function getParams(array $arr)
     array_push($params, ...$param);
     return $params;
 }
-
-
-//беремо інфу з форми замовлення
-//function deliveryInfo(array $arr){
-//    $delivery_info = [];
-//    $item = array_values($arr);
-//    array_push($delivery_info, ...$item);
-//    return $delivery_info;
-//}
 
 
 //ловимо знаки питання для бінду
@@ -59,4 +53,15 @@ function insertOrder($table_name, $columns, $arr){
     mysqli_stmt_bind_param($stmt_products, getTypes(getParams($arr)) ,...getParams($arr));
     mysqli_stmt_execute($stmt_products);
 }
+
+function dbSelectAll($connect, $table_name ){
+$result = mysqli_query($connect, "SELECT * FROM $table_name");
+return $result;
+}
+
+function dbSelectWhere($connect, $table_name, $equal, $columns = '*'){
+$result = mysqli_query($connect, "SELECT $columns FROM $table_name WHERE $equal");
+return $result;
+}
+
 

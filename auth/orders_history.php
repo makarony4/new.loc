@@ -1,5 +1,5 @@
 <?php
-require_once ('../connect.php');
+require_once('../config/connect.php');
 
 $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 $ordered_products = mysqli_query($connect, "SELECT * FROM order_products where order_id = '$order_id'");

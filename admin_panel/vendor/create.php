@@ -1,5 +1,5 @@
 <?php
-require_once('../../connect.php');
+require_once('../../config/connect.php');
 
 $title = $_POST['title'];
 $price = $_POST['price'];
