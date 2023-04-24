@@ -43,52 +43,15 @@ if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
 <h1><a href="index.php">Admin Panel</a></h1>
 <?php
 }
+$table = 'orders';
+$items = mysqli_query($connect, "SELECT * FROM orders");
+$keys = mysqli_fetch_assoc($items);
 ?>
 <h1><a href="../../index.php">Products Page</a></h1>
 
 
 <h1>Orders</h1>
-<table>
-    <tr>
-        <th>OrderID</th>
-        <th>FUll name</th>
-        <th>Number</th>
-        <th>City</th>
-        <th>Address</th>
-        <th>Order Date</th>
-        <th>Order Status</th>
-    </tr>
-
-    <?php
-    $orders = mysqli_query($connect, "SELECT * FROM orders");
-while($row = mysqli_fetch_assoc($orders)){
-if ($row['order_status'] == 0){
-   $status = 'New';
-}
-elseif ($row['order_status'] == 1){
-    $status = 'Pending';
-}
-else{
-    $status = 'Done';
-}
-    ?>
-        <tr>
-            <td><?=$row['id']?></td>
-            <td><?=$row['full_name']?></td>
-            <td>+380<?=$row['number']?></td>
-            <td><?=$row['city']?></td>
-            <td><?=$row['address']?></td>
-            <td><?=$row['order_date']?></td>
-            <td><?=$status?></td>
-            <td><a href="order_details.php?id=<?=$row['id']?>">Details</a></td>
-            <td><a href="vendor/delete_order.php?id=<?=$row['id']?>">Delete</a></td>
-            <td><a href="changestatus.php?id=<?=$row['id']?>&action=on_work">Take to work </a></td>
-            <td><a href="changestatus.php?id=<?=$row['id']?>&action=finish">Finish</a></td>
-        </tr>
-        <?php
-}
-    ?>
-</table><br><br>
+<?php require_once ('../view/td_table.php')?>
 
 </body>
 </html>

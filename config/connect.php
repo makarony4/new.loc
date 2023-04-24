@@ -1,6 +1,6 @@
 <?php
 //підключення до БД
-$connect = mysqli_connect('localhost', 'root', '', 'crud');
+$connect = mysqli_connect('localhost', 'root', 'root', 'crud');
 
 
 
