@@ -34,6 +34,9 @@ if(isset($_COOKIE['login'])){
         <a href = "vendor/logout.php" class="logout" > Log Out </a >
     <?php
     }
+    $table = 'products';
+    $items = mysqli_query($connect, "SELECT * FROM products");
+    $keys = mysqli_fetch_assoc($items);
     ?>
     <h3><?=$_COOKIE['name']?></h3>
 </header>
@@ -43,33 +46,6 @@ if(isset($_COOKIE['login'])){
 
 <a href = "../index.php">Products page</a>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Photo</th>
-        <th><h2><a href="create_product.php">Create Product</a></h2>
-        </th>
-    </tr>
-    <?php
-
-    while ($row = mysqli_fetch_assoc($products)) {
-        ?>
-    <tr>
-        <td><?=$row['id']?></td>
-        <td><?=$row['title']?></td>
-        <td><?=$row['price']?></td>
-        <td><?=$row['description']?></td>
-        <td><img src="<?=$row['photo']?>" width="100" height="100"></td>
-        <td><a href="update.php?id=<?=mysqli_real_escape_string($connect,$row['id'])?>">Update</a></td>
-        <td><a href="vendor/delete.php?id=<?=mysqli_real_escape_string($connect, $row['id'])?>">Delete</a> </td>
-        <td><a href="product_stats.php?id=<?=$row['id']?>">Stats by product</a></td>
-    </tr>
-    <?php
-}
-    ?>
-</table><br><br>
+<?php require_once ('../view/td_table.php')?>
 </body>
 </html>
