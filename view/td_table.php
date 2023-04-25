@@ -1,5 +1,4 @@
-<?php
-?>
+
 <table>
     <tr>
         <?php foreach ($keys as $key=>$value){
@@ -13,6 +12,7 @@
         <tr>
             <?php
             foreach ($row as $key => $value){
+                $order_id = $value[0];
                 echo "<td>$value</td>";
             }
             if($table == 'products'){?>
@@ -22,7 +22,7 @@
             <?php
             }
             if ($table == 'users'){?>
-            <td><a href="user_orders.php?email=<?=$row['email']?>">User orders</a></td>
+            <td><a href="user_orders.php?email=<?=$row['email']?>&id=<?=$row['id']?>">User orders</a></td>
             <td><a href="vendor/delete_user.php?id=<?=mysqli_real_escape_string($connect, $row['id'])?>">Delete</a></td>
             <?php
             }
@@ -36,7 +36,6 @@
             }
             ?>
         </tr>
-
         <?php
     }
     ?>
