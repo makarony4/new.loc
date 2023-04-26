@@ -5,6 +5,7 @@ if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
     $_SESSION['missing_token'] = 'Відмовлено в доступі';
     header('Location: ../index.php');
 }
+
 ?>
 <!doctype html>
 <html lang="en">

@@ -17,6 +17,7 @@ if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
  $_SESSION['missing_token'] = 'Відмовлено в доступі';
  header('Location: ../index.php');
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,6 +44,6 @@ if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
 
 <a href = "../index.php">Products page</a>
 
-<?php require_once ('../view/td_table.php')?>
+<?php require_once ('../view/td_table.php') ?>
 </body>
 </html>
