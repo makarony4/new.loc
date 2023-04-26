@@ -59,6 +59,7 @@ function takeToken($login)
     global $connect;
     $token = mysqli_query($connect, "SELECT token from employee where login = '$login'");
     $token = mysqli_fetch_assoc($token);
+    $token = $token['token'];
     return $token;
 }
 
