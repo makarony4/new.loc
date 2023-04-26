@@ -1,10 +1,18 @@
 <?php
+error_reporting(-1);
 require_once('../config/connect.php');
 if (!isset($_COOKIE['login'])){
     header('Location: ../index.php');
 }
+require_once ('../funcs/funcs.php');
+if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
+    $_SESSION['missing_token'] = 'Відмовлено в доступі';
+    header('Location: ../index.php');
+}
+
+
 $table = 'users';
-$items = mysqli_query($connect, "SELECT * FROM users");
+$items = mysqli_query($connect, "SELECT id,full_name,login, email, avatar FROM users");
 $keys = mysqli_fetch_assoc($items);
 ?>
 <!doctype html>

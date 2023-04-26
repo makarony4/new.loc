@@ -1,7 +1,11 @@
 <?php
 require_once('../config/connect.php');
 $email = $_GET['email'];
-
+require_once ('../funcs/funcs.php');
+if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
+    $_SESSION['missing_token'] = 'Відмовлено в доступі';
+    header('Location: ../index.php');
+}
 
 $result = mysqli_query($connect, "SELECT * FROM orders where email = '$email' order by order_date");
 ?>

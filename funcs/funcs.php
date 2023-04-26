@@ -54,14 +54,12 @@ function insertOrder($table_name, $columns, $arr){
     mysqli_stmt_execute($stmt_products);
 }
 
-function dbSelectAll($connect, $table_name ){
-$result = mysqli_query($connect, "SELECT * FROM $table_name");
-return $result;
-}
-
-function dbSelectWhere($connect, $table_name, $equal, $columns = '*'){
-$result = mysqli_query($connect, "SELECT $columns FROM $table_name WHERE $equal");
-return $result;
+function takeToken($login)
+{
+    global $connect;
+    $token = mysqli_query($connect, "SELECT token from employee where login = '$login'");
+    $token = mysqli_fetch_assoc($token);
+    return $token;
 }
 
 

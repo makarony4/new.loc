@@ -1,12 +1,7 @@
 <?php
-error_reporting(-1);
 require_once('../config/connect.php');
+require_once ('../funcs/funcs.php');
 session_start();
-
-
-
-$products = mysqli_query($connect,"SELECT * FROM `products`");
-
 if(!isset($_COOKIE['login'])){
     $_SESSION['message'] = 'Немає прав доступу';
     header("location:javascript:history.go(-1)");
@@ -18,9 +13,11 @@ if(isset($_COOKIE['login'])){
         header("location:javascript:history.go(-1)");
     }
 }
+if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
+ $_SESSION['missing_token'] = 'Відмовлено в доступі';
+ header('Location: ../index.php');
+}
 ?>
-
-
 <!doctype html>
 <html lang="en">
 <head>

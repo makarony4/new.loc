@@ -1,6 +1,6 @@
 <?php
 
-require_once('../config/connect.php');
+require_once('../../config/connect.php');
 
 $id = mysqli_escape_string($connect, $_GET['id']);
 $sql  = "DELETE FROM products WHERE `products`.`id` = ?";
