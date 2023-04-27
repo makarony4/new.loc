@@ -1,3 +1,7 @@
+<?php
+require_once ('token_generator.php');
+
+?>
 <form action="vendor/create.php" method="post" enctype = "multipart/form-data">
     <h3>Create new product</h3>
     <p>Photo</p>

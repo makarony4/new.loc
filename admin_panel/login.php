@@ -4,6 +4,8 @@ require_once('../config/connect.php');
 if(isset($_COOKIE['login'])){
     header('Location:orders.php');
 }
+
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 
 
@@ -24,6 +26,7 @@ if(isset($_COOKIE['login'])){
         <label>Password</label>
         <input type="password" name="password" placeholder="Press your password">
         <label><input type="checkbox" name="rememberme">Remember Me</label>
+        <input type="hidden" name="token" value="<?=$_SESSION['csrf_token']?>">
         <button type="submit">Login</button>
 
             <?php

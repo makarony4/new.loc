@@ -1,5 +1,8 @@
 <?php
 require_once('../config/connect.php');
+require_once ('token_generator.php');
+
+
 $id = trim($_GET['id']);
 
 $ordered_times = mysqli_query($connect, "SELECT sum(quantity) from order_products where id = '$id'");

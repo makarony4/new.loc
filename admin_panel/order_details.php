@@ -3,6 +3,10 @@ require_once('../config/connect.php');
 
 session_start();
 
+require_once ('token_generator.php');
+
+
+
 $table = 'order_details';
 if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
     $_SESSION['denyaccess'] = 'Немає прав доступу';

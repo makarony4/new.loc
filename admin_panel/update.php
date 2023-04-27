@@ -1,6 +1,7 @@
 <?php
 require_once('../config/connect.php');
 
+require_once ('token_generator.php');
 
 
 $product_id = mysqli_real_escape_string($connect, trim($_GET['id']));

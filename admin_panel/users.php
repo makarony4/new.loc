@@ -1,5 +1,10 @@
 <?php
 error_reporting(-1);
+
+require_once ('token_generator.php');
+
+
+
 require_once('../config/connect.php');
 if (!isset($_COOKIE['login'])){
     header('Location: ../index.php');
@@ -9,6 +14,8 @@ if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
     $_SESSION['missing_token'] = 'Відмовлено в доступі';
     header('Location: ../index.php');
 }
+
+
 
 
 $table = 'users';

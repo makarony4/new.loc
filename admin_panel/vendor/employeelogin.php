@@ -2,6 +2,17 @@
 require_once('../../config/connect.php');
 session_start();
 
+if (!isset($_POST['token']) || !isset($_SESSION['csrf_token'])){
+    exit('Token is not set!');
+}
+if ($_POST['token'] == $_SESSION['csrf_token']){
+    echo "Validate";
+    unset($_SESSION['csrf_token']);
+}else{
+    exit('Invalid token');
+}
+
+
 $login = $_POST['login'];
 $password = md5($_POST['password']);
 
