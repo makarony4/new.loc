@@ -1,26 +1,26 @@
 <?php
-error_reporting(-1);
-require_once('../config/connect.php');
 session_start();
 
+require_once('../config/connect.php');
+require_once ('../funcs/funcs.php');
 
-
-$products = mysqli_query($connect,"SELECT * FROM `products`");
 
 if(!isset($_COOKIE['login'])){
     $_SESSION['message'] = 'Немає прав доступу';
     header("location:javascript:history.go(-1)");
 }
-
 if(isset($_COOKIE['login'])){
     if($_COOKIE['role'] !== 'admin'){
         $_SESSION['denyaccess'] = 'Недостатньо прав доступу';
         header("location:javascript:history.go(-1)");
     }
 }
+if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])){
+ $_SESSION['missing_token'] = 'Відмовлено в доступі';
+ header('Location: ../index.php');
+}
+
 ?>
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -35,7 +35,7 @@ if(isset($_COOKIE['login'])){
     <?php
     }
     $table = 'products';
-    $items = mysqli_query($connect, "SELECT * FROM products");
+    $items = mysqli_query($connect, "SELECT id,title,price,description,photo FROM products where status = 'active'");
     $keys = mysqli_fetch_assoc($items);
     ?>
     <h3><?=$_COOKIE['name']?></h3>
@@ -46,6 +46,6 @@ if(isset($_COOKIE['login'])){
 
 <a href = "../index.php">Products page</a>
 
-<?php require_once ('../view/td_table.php')?>
+<?php require_once ('../view/td_table.php') ?>
 </body>
 </html>

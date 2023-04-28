@@ -1,8 +1,6 @@
 <?php
+session_start();
 require_once('../config/connect.php');
-
-
-
 $product_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 $sql = "SELECT * FROM `products` WHERE `id` = ?";
 $stmt = mysqli_prepare($connect, $sql);
@@ -11,7 +9,6 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $product = mysqli_fetch_assoc($result);
 mysqli_close($connect);
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -34,6 +31,7 @@ mysqli_close($connect);
     <input type="number" name="price" value="<?= $product['price'] ?>">
     <p>Description</p> <br>
     <textarea name="description"><?= $product['description'] ?></textarea><br><br>
+    <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
     <button type="submit">Update product</button>
 </form>
 </body>

@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+$token = bin2hex(random_bytes(32));
+$_SESSION['token'] = $token;
+
 require_once ('../config/connect.php');
 //переадресація якщо юзер залогінився
 if(isset($_COOKIE['login_user'])){
@@ -32,6 +36,7 @@ if(isset($_COOKIE['login_user'])){
         <label>Password</label>
         <input type="password" name="password" placeholder="Press your password">
         <label><input type="checkbox" name="rememberme">Stay Logged in</label>
+        <input type="hidden" name="token" value="<?=$token?>">
         <button type="submit">Login</button>
         <p>
             Have not account? - <a href="register.php">Register</a>!

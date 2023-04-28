@@ -3,6 +3,8 @@ require_once('../config/connect.php');
 
 session_start();
 
+
+
 $table = 'order_details';
 if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
     $_SESSION['denyaccess'] = 'Немає прав доступу';
@@ -37,7 +39,6 @@ $items = mysqli_query($connect, "SELECT * FROM order_products where order_id = '
 $keys = mysqli_fetch_assoc($items);
 require_once ('../view/td_table.php');
 ?>
-
     <tr>
         <td colspan='3'></td>
         <td></b>Total</td>

@@ -13,7 +13,7 @@ $check = mysqli_fetch_all($check);
 
 //якщо паролі співпадають , загружаю фото в потрібну папку
 if($password === $confirm_password){
-    if(!$path = 'uploads/' . time() . $_FILES['avatar']['name']) {
+    if($path = 'uploads/' . time() . $_FILES['avatar']['name']) {
         move_uploaded_file($_FILES['avatar']['tmp_name'], '../' . $path);
 
     }

@@ -1,6 +1,18 @@
 <?php
 session_start();
 require_once ('../../config/connect.php');
+
+if (!isset($_POST['token']) || !isset($_SESSION['token'])){
+    exit('Token is not set!');
+}
+if ($_POST['token'] == $_SESSION['token']){
+    echo "Validate";
+    unset($_SESSION['token']);
+}else{
+    exit('Invalid token');
+}
+
+
 $login = $_POST['login'];
 $password = md5($_POST['password']);
 $sql = "SELECT * FROM users WHERE login = ? AND password = ?";

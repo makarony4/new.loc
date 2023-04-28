@@ -3,13 +3,18 @@ session_start();
 require_once('config/connect.php');
 error_reporting(1);
 $total = 0;
-if(isset($_COOKIE['role']) && $_COOKIE['role'] =='admin'){?>
+if(isset($_COOKIE['role']) && $_COOKIE['role'] =='admin' && $_COOKIE['token']){?>
 <a href="admin_panel/index.php"><h3>Admin Panel</h3></a>
 <?php
 }
 ?>
 <?php
-//витягування ключів
+if (isset($_SESSION['missing_token'])){
+    echo "<h3 style='color: red'>" . $_SESSION['missing_token'] . "</h3>";
+}
+unset($_SESSION['missing_token']);
+
+    //витягування ключів
 if(isset($_POST['add_to_cart'])){
     if(isset($_SESSION['cart'])){
 
