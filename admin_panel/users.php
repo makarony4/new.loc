@@ -1,10 +1,6 @@
 <?php
 error_reporting(-1);
 
-require_once ('token_generator.php');
-
-
-
 require_once('../config/connect.php');
 if (!isset($_COOKIE['login'])){
     header('Location: ../index.php');

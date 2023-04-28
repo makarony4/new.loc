@@ -1,8 +1,6 @@
 <?php
 require_once ('query.php');
 require_once ('../funcs/funcs.php');
-require_once ('token_generator.php');
-
 
 
 if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){

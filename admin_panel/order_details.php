@@ -3,8 +3,6 @@ require_once('../config/connect.php');
 
 session_start();
 
-require_once ('token_generator.php');
-
 
 
 $table = 'order_details';
