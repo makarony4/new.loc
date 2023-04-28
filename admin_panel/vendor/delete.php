@@ -1,8 +1,10 @@
 <?php
-
+session_start();
 require_once('../../config/connect.php');
+require_once ('../token_generator.php');
 
-$id = mysqli_escape_string($connect, $_GET['id']);
+
+$id = $_POST['id'];
 $sql  = "UPDATE products SET status = 'not_active' WHERE `products`.`id` = ?";
 $stmt = mysqli_prepare($connect, $sql);
 mysqli_stmt_bind_param($stmt, "s", $id);

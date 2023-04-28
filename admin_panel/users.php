@@ -16,8 +16,6 @@ if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
 }
 
 
-
-
 $table = 'users';
 $items = mysqli_query($connect, "SELECT id,full_name,login, email, avatar FROM users");
 $keys = mysqli_fetch_assoc($items);
@@ -34,7 +32,8 @@ $keys = mysqli_fetch_assoc($items);
 </head>
 <body>
 <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
-
+<a href="vendor/delete.php?id=22">Delete
+</a>
 <h3><a href="index.php">Admin Panel</a></h3>
 <h3>Registered Users</h3>
 <?php require_once ('../view/td_table.php')?>

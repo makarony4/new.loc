@@ -3,7 +3,6 @@ session_start();
 
 require_once('../config/connect.php');
 require_once ('../funcs/funcs.php');
-require_once ('token_generator.php');
 
 
 if(!isset($_COOKIE['login'])){

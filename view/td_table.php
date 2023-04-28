@@ -17,7 +17,11 @@
                 ?>
                 <td><img src="./<?=$value?>" alt="<?=$value?>" width="100" height="100"></td>
                 <td><a href="update.php?id=<?=mysqli_real_escape_string($connect,$row['id'])?>">Update</a></td>
-        <td><a href="vendor/delete.php?id=<?=mysqli_real_escape_string($connect, $row['id'])?>">Delete</a> </td>
+                <form action="vendor/delete.php" method="post">
+                    <td><input type="submit" value="Delete"></td>
+                    <input type="hidden" name="id" value="<?=$row['id']?>">
+                    <input type="hidden" name="token" value="<?=$_SESSION['token']?>">
+                </form>
         <td><a href="product_stats.php?id=<?=$row['id']?>">Stats by product</a></td>
             <?php
             }

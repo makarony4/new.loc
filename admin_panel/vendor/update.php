@@ -1,5 +1,14 @@
 <?php
+session_start();
+
+echo $_SESSION['token'];
+echo $_POST['token'];
+
 require_once('../../config/connect.php');
+require_once ('../token_generator.php');
+
+
+
 $photo = $_FILES['photo']['name'];
 $photo_tmp = $_FILES['photo']['tmp_name'];
 $id = mysqli_real_escape_string($connect, $_POST['id']);
