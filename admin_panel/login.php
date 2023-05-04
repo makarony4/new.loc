@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once('../config/connect.php');
 if(isset($_COOKIE['login'])){
     header('Location:orders.php');
 }

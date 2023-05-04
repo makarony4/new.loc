@@ -3,7 +3,7 @@ session_start();
 
 require_once('../config/connect.php');
 require_once ('../funcs/funcs.php');
-
+require_once ('../classes/DbConnect.php');
 
 if(!isset($_COOKIE['login'])){
     $_SESSION['message'] = 'Немає прав доступу';
@@ -35,7 +35,7 @@ if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])){
     <?php
     }
     $table = 'products';
-    $items = mysqli_query($connect, "SELECT id,title,price,description,photo FROM products where status = 'active'");
+    $items = mysqli_query($conn->connect(), "SELECT id,title,price,description,photo FROM products where status = 'active'");
     $keys = mysqli_fetch_assoc($items);
     ?>
     <h3><?=$_COOKIE['name']?></h3>
