@@ -53,11 +53,8 @@ if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
 }
 $table = 'orders';
 $items = mysqli_query($connect, "SELECT * FROM orders");
-$keys = mysqli_fetch_assoc($items);
 ?>
 <h1><a href="../../index.php">Products Page</a></h1>
-
-
 <h1>Orders</h1>
 <?php require_once ('../view/td_table.php')?>
 
