@@ -36,7 +36,6 @@ $total = mysqli_query($connect, "select sum(total_price) from order_products whe
 $total = mysqli_fetch_array($total);
 
 $items = mysqli_query($connect, "SELECT * FROM order_products where order_id = '$order_id'");
-$keys = mysqli_fetch_assoc($items);
 require_once ('../view/td_table.php');
 ?>
     <tr>
