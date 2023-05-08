@@ -17,11 +17,24 @@ class db
 
     public function insert($table, $para = array())
     {
-        $table_columns = implode(',', array_keys($para));
-        $table_value = implode(',', $para);
-        $sql = "INSERT INTO $table ('$table_columns') VALUES ('$table_value')";
+        $types = '';
+        foreach ($para as $params){
+            if (is_string($params)){
+                $types .= 's';
+            }
+            elseif(is_int($params)){
+                $types .= 'i';
+            }
+        }
 
-        $result = $this->mysqli->query($sql);
+        $table_columns = implode(',', array_keys($para));
+        $table_value = array_values($para);
+        $question_marks = str_repeat('?,',count($para));
+        $question_marks = rtrim($question_marks, ',');
+        $stmt = $this->mysqli->prepare("INSERT INTO $table ($table_columns) VALUES ($question_marks)");
+        $stmt->bind_param($types, ...$table_value);
+        $stmt->execute();
+
     }
 
     public function update($table, $id, $para = array())
