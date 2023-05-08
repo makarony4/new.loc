@@ -4,7 +4,6 @@ $result = [];
 while($row = mysqli_fetch_assoc($items)){
     $result[]= $row;
 }
-
 ?>
 <table>
     <tr>
@@ -21,11 +20,12 @@ while($row = mysqli_fetch_assoc($items)){
             <?php
             foreach ($times as $key => $value) {
                 echo "<td>$value</td>";
+//                echo $key . "<br>";
             }
             if ($table == 'products') {
                 ?>
                 <td><img src="./<?= $value ?>" alt="<?= $value ?>" width="100" height="100"></td>
-                <td><a href="update.php?id=<?= mysqli_real_escape_string($connect, $row['id']) ?>">Update</a></td>
+                <td><a href="update.php?id=<?=$times['id']?>">Update</a></td>
                 <form action="vendor/delete.php" method="post">
                     <td><input type="submit" value="Delete"></td>
                     <input type="hidden" name="id" value="<?= $row['id'] ?>">
