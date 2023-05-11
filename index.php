@@ -1,8 +1,7 @@
 <?php
 session_start();
-//require_once('config/connect.php');
-require_once('classes/db.php');
-$index = new db();
+require_once ('vendor/autoload.php');
+$index = new \MyApp\db();
 error_reporting(1);
 $total = 0;
 if (isset($_COOKIE['role']) && $_COOKIE['role'] == 'admin' && $_COOKIE['token']) {

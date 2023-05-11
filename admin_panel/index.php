@@ -1,8 +1,8 @@
 <?php
 session_start();
-
+require_once ('../vendor/autoload.php');
 //require_once('../config/connect.php');
-require_once('../classes/db.php');
+//require_once('../classes/db.php');
 require_once('../funcs/funcs.php');
 
 if (!isset($_COOKIE['login'])) {
@@ -35,7 +35,8 @@ if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])) {
         <?php
     }
     $table = 'products';
-    $admin = new db;
+    $admin = new \MyApp\db();
+    //    $admin = new db;
     $admin->select("products", 'id, title, price,description, photo', 'status', 'active');
     $items = $admin->sql;
     ?>
