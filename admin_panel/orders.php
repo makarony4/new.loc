@@ -1,7 +1,9 @@
 <?php
 session_start();
-require_once('../config/connect.php');
 require_once ('../funcs/funcs.php');
+require_once ('../vendor/autoload.php');
+
+$orders = new \MyApp\db();
 
 
 if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
@@ -52,7 +54,8 @@ if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
 <?php
 }
 $table = 'orders';
-$items = mysqli_query($connect, "SELECT * FROM orders");
+$orders->select('orders');
+$items = $orders->sql;
 ?>
 <h1><a href="../../index.php">Products Page</a></h1>
 <h1>Orders</h1>
