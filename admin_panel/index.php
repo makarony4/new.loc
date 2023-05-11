@@ -2,22 +2,22 @@
 session_start();
 
 //require_once('../config/connect.php');
-require_once ('../classes/db.php');
-require_once ('../funcs/funcs.php');
+require_once('../classes/db.php');
+require_once('../funcs/funcs.php');
 
-if(!isset($_COOKIE['login'])){
+if (!isset($_COOKIE['login'])) {
     $_SESSION['message'] = 'Немає прав доступу';
     header("location:javascript:history.go(-1)");
 }
-if(isset($_COOKIE['login'])){
-    if($_COOKIE['role'] !== 'admin'){
+if (isset($_COOKIE['login'])) {
+    if ($_COOKIE['role'] !== 'admin') {
         $_SESSION['denyaccess'] = 'Недостатньо прав доступу';
         header("location:javascript:history.go(-1)");
     }
 }
-if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])){
- $_SESSION['missing_token'] = 'Відмовлено в доступі';
- header('Location: ../index.php');
+if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])) {
+    $_SESSION['missing_token'] = 'Відмовлено в доступі';
+    header('Location: ../index.php');
 }
 
 ?>
@@ -27,26 +27,26 @@ if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])){
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
-<?php require_once ('../view/table_style.php')?>
+<?php require_once('../view/table_style.php') ?>
 <header>
     <?php
-    if(isset($_COOKIE['login'])) {?>
-        <a href = "vendor/logout.php" class="logout" > Log Out </a >
-    <?php
+    if (isset($_COOKIE['login'])) { ?>
+        <a href="vendor/logout.php" class="logout"> Log Out </a>
+        <?php
     }
     $table = 'products';
     $admin = new db;
-    $admin->select("products", 'id, title, price,description, photo', "status = 'active'");
+    $admin->select("products", 'id, title, price,description, photo', 'status', 'active');
     $items = $admin->sql;
     ?>
-    <h3><?=$_COOKIE['name']?></h3>
+    <h3><?= $_COOKIE['name'] ?></h3>
 </header>
 <body>
 <h1><a href="orders.php" class="link-primary">Orders</a></h1>
 <h2><a href="users.php">Users</a></h2>
 
-<a href = "../index.php">Products page</a>
+<a href="../index.php">Products page</a>
 
-<?php require_once ('../view/td_table.php') ?>
+<?php require_once('../view/td_table.php') ?>
 </body>
 </html>
