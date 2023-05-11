@@ -13,8 +13,7 @@ if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
 
 
 $table = 'users';
-//$items = mysqli_query($connect, "SELECT id,full_name,login, email, avatar FROM users");
-$users = new db;
+$users = new \MyApp\db();
 $users->select("users", "id,full_name, login,email, avatar");
 $items = $users->sql;
 ?>
