@@ -1,10 +1,6 @@
 <?php
-require_once ('DbConnect.php');
-require_once ('Product.php');
-require_once ('DbFuncs.php');
+use MyApp\db\db;
+require_once realpath("../vendor/autoload.php");
 
-$product = new DbFuncs();
-$product->showAllProducts('*');
-
-
+$a = new MyApp\db\db();
 
