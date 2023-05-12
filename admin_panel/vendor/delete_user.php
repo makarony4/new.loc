@@ -1,10 +1,6 @@
 <?php
-require_once('../../config/connect.php');
-
-$id = mysqli_escape_string($connect, $_GET['id']);
-$sql  = "DELETE FROM users WHERE `users`.`id` = ?";
-$stmt = mysqli_prepare($connect, $sql);
-mysqli_stmt_bind_param($stmt, "s", $id);
-mysqli_stmt_execute($stmt);
-mysqli_close($connect);
+require_once ('../../vendor/autoload.php');
+$delete_user = new \MyApp\db();
+$id = $delete_user->mysqli->real_escape_string($_GET['id']);
+$delete_user->delete('users', $id);
 header('Location: ../users.php');

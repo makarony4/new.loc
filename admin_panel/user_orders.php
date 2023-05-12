@@ -1,5 +1,6 @@
 <?php
-require_once('../config/connect.php');
+require_once ('../vendor/autoload.php');
+$user_orders = new \MyApp\db();
 $email = $_GET['email'];
 require_once ('../funcs/funcs.php');
 
@@ -7,7 +8,10 @@ if ($_COOKIE['token'] != takeToken($_COOKIE['login'])){
     $_SESSION['missing_token'] = 'Відмовлено в доступі';
     header('Location: ../index.php');
 }
-$result = mysqli_query($connect, "SELECT * FROM orders where email = '$email' order by order_date");
+
+$query = $user_orders->select('orders', '*', 'email', $email);
+$result = $user_orders->sql;
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,7 +40,7 @@ $result = mysqli_query($connect, "SELECT * FROM orders where email = '$email' or
         <th>Email</th>
         <th>Total Price</th>
     </tr>
-    <?php while($row = $result -> fetch_assoc()):
+    <?php while($row = mysqli_fetch_assoc($result)):
         if ($row['order_status'] == 0) {
             $status = 'New';
         } elseif ($row['order_status'] == 1) {
@@ -44,8 +48,9 @@ $result = mysqli_query($connect, "SELECT * FROM orders where email = '$email' or
         } else {
             $status = 'Done';
         }
-        $total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = {$row['id']}");
-        $total = mysqli_fetch_array($total);
+        $total_query = $user_orders->select('order_products', 'sum(total_price)', 'order_id', $row['id']);
+        $total = $user_orders->sql;
+        $total = mysqli_fetch_assoc($total);
         ?>
         <tr>
             <td><?=$row['id']?></td>
@@ -56,7 +61,7 @@ $result = mysqli_query($connect, "SELECT * FROM orders where email = '$email' or
             <td><?=$row['order_date']?></td>
             <td><?=$status?></td>
             <td><?=$row['email']?></td>
-            <td><?=$total[0]?></td>
+            <td><?=$total['sum(total_price)']?></td>
             <td><a href="order_details.php?id=<?=$row['id']?>">Details</a></td>
         </tr>
         <?php

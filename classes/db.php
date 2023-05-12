@@ -61,17 +61,13 @@ class db
             $stmt = $this->mysqli->prepare($sql);
             $stmt->bind_param($types, ...$values);
             $stmt->execute();
-//            $result = $this->mysqli->query($sql);
     }
 
     public function delete($table, $id)
     {
-        $sql = "DELETE FROM $table";
-        $sql .= "WHERE $id = ?";
+        $sql = "DELETE FROM $table WHERE id = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param('s', $id);
-//        $this->sql = $result = $stmt->execute();
-
         $stmt->execute();
     }
 

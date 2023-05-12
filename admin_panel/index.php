@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once ('../vendor/autoload.php');
-//require_once('../config/connect.php');
-//require_once('../classes/db.php');
 require_once('../funcs/funcs.php');
 
 if (!isset($_COOKIE['login'])) {
@@ -42,6 +40,7 @@ if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])) {
     <h3><?= $_COOKIE['name'] ?></h3>
 </header>
 <body>
+<h2><a href="create_product.php">Create new product</a></h2>
 <h1><a href="orders.php" class="link-primary">Orders</a></h1>
 <h2><a href="users.php">Users</a></h2>
 
