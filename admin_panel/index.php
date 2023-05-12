@@ -36,7 +36,6 @@ if ($_COOKIE['token'] !== takeToken($_COOKIE['login'])) {
     }
     $table = 'products';
     $admin = new \MyApp\db();
-    //    $admin = new db;
     $admin->select("products", 'id, title, price,description, photo', 'status', 'active');
     $items = $admin->sql;
     ?>
