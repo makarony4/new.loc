@@ -1,10 +1,7 @@
 <?php
-require_once('../config/connect.php');
-
-$id = mysqli_escape_string($connect, $_GET['id']);
+require_once ('../../vendor/autoload.php');
+$delete_order = new \MyApp\db();
+$id = $delete_order->mysqli->real_escape_string($_GET['id']);
+$delete_order->delete('orders', $id);
 $sql  = "DELETE FROM orders WHERE `orders`.`id` = ?";
-$stmt = mysqli_prepare($connect, $sql);
-mysqli_stmt_bind_param($stmt, "s", $id);
-mysqli_stmt_execute($stmt);
-mysqli_close($connect);
-header('Location: orders.php');
+header('Location: ../orders.php');

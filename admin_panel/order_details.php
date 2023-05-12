@@ -1,16 +1,18 @@
 <?php
-require_once('../config/connect.php');
-
+//require_once('../config/connect.php');
+require_once ('../vendor/autoload.php');
 session_start();
 
-
+$order_details = new \MyApp\db();
 
 $table = 'order_details';
 if($_COOKIE['role'] ==! 'manager' or $_COOKIE['role'] ==! 'admin'){
     $_SESSION['denyaccess'] = 'Немає прав доступу';
     header('Location: ../../index.php');
 }
-$order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
+//$order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
+$order_id = $order_details->mysqli->real_escape_string($_GET['id']);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,17 +33,18 @@ $order_id = mysqli_real_escape_string($connect, trim($_GET['id']));
 </header>
 
 <?php
+$query = $order_details->select('order_products','*', 'order_id', $order_id);
+$items = $order_details->sql;
+$total_price_query = $order_details->select('order_products','sum(total_price)', 'order_id', $order_id);
+$result = $order_details->sql;
+$total_result = mysqli_fetch_assoc($result);
 
-$total = mysqli_query($connect, "select sum(total_price) from order_products where order_id = '$order_id'");
-$total = mysqli_fetch_array($total);
-
-$items = mysqli_query($connect, "SELECT * FROM order_products where order_id = '$order_id'");
 require_once ('../view/td_table.php');
 ?>
     <tr>
         <td colspan='3'></td>
         <td></b>Total</td>
-        <td><?=$total[0]?></td>
+        <td><?=$total_result['sum(total_price)']?></td>
     </tr>
 </table>
 </body>

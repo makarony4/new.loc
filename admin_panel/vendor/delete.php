@@ -1,13 +1,8 @@
 <?php
 session_start();
-require_once('../../config/connect.php');
-require_once ('../token_generator.php');
 
-
-$id = $_POST['id'];
-$sql  = "UPDATE products SET status = 'not_active' WHERE `products`.`id` = ?";
-$stmt = mysqli_prepare($connect, $sql);
-mysqli_stmt_bind_param($stmt, "s", $id);
-mysqli_stmt_execute($stmt);
-mysqli_close($connect);
+require_once ('../../vendor/autoload.php');
+$delete_product = new \MyApp\db();
+$id = $delete_product->mysqli->real_escape_string($_POST['id']);
+$delete_product->update('products', $id, ['status'=>'not_active']);
 header('Location: ../index.php');
